@@ -3,6 +3,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const recruiterSchema = new Schema({
+    id: {
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+        required: true,
+        index: true
+    },
     contact: {
         type: Number,
         validate: {
@@ -20,4 +26,4 @@ const recruiterSchema = new Schema({
     timestamps: true
 });
 
-module.exports = mongoose.model('recruiter', recruiterSchema);
+module.exports = Recruiter = mongoose.model('recruiter', recruiterSchema);

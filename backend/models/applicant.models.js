@@ -7,6 +7,12 @@ const statuses = [
 ]
 
 const applicantSchema = new Schema({
+    id: {
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+        required: true,
+        index: true
+    },
     skills: {
         type: [String],
         required: true
@@ -60,4 +66,4 @@ function arrayLimit(val) {
     return val.length <= 10;
 };
 
-module.exports = mongoose.model('applicant', applicantSchema);
+module.exports = Applicant = mongoose.model('applicant', applicantSchema);

@@ -36,4 +36,6 @@ const applicationSchema = new Schema({
   }
 }, {
   timestamps: true
-})
+});
+
+module.exports = Application = mongoose.model('application', applicationSchema);

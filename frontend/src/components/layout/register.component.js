@@ -49,13 +49,14 @@ class User extends Component {
         };
         console.log(this.state.name, this.state.email, this.state.password, this.state.role);
         axios
-            .post("/users/register", newUser)
+            .post("/register", newUser)
             .then(function (res) {
                 alert("Registered Successfully");
                 window.location.reload();
             })
-            .catch(function (res) {
-                alert(res.response.data[Object.keys(res.response.data)[0]]);
+            .catch(function (err) {
+                // alert(res.response.data[Object.keys(res.response.data)[0]]);
+                console.log(err);
             })
     }   
     submitForm(e) {

@@ -3,10 +3,13 @@ const router = express.Router();
 
 // User Model
 const User = require('../../models/user.models');
+const Recruiter = require('../../models/recruiter.models');
+const Applicant = require('../../models/applicant.models');
 
 // login
 router.post("/login", (req, res) => {
-	const email = req.body.email;
+    const email = req.body.email;
+    // const password = req.body.password;
 	// Find user by email
 	User.findOne({ email }).then(user => {
 		// Check if user email exists
@@ -19,25 +22,33 @@ router.post("/login", (req, res) => {
             res.send("Email Found");
             return user;
         }
-	});
+    });
+    
 });
 
 // register
 router.post("/register", (req, res) => {
-    const newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
-        role: req.body.role
-    });
+    const userData = req.body;
+    const newUser = new User(userData
+        // {
+        // name: req.body.name,
+        // email: req.body.email,
+        // password: req.body.password,
+        // role: req.body.role
+        // }
+    );
 
-    newUser.save()
+    const savedUser = newUser.save()
         .then(user => {
             res.status(200).json(user);
         })
         .catch(err => {
             res.status(400).send(err);
         });
+
+    userData.id = savedUser.id;
+    savedUser.role === 'Applicant' ? new Applicant(userData) : new Recruiter(userData);
+
 });
 
 // delete a user
