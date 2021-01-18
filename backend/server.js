@@ -6,6 +6,8 @@ require('dotenv').config();
 
 const jobs = require('./routes/api/jobs');
 const users = require('./routes/api/users');
+// const applicant = require('./routes/api/applicants');
+// const recruiter = require('./routes/api/recruiters');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -24,7 +26,9 @@ connection.once('open', () => {
 
 // Use Routes
 app.use('/jobs', jobs);
-app.use('/users', users);
+app.use('/', users);
+// app.use('/applicant', applicant);
+// app.use('/recruiter', recruiter);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

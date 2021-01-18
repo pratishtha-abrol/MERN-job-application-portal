@@ -49,7 +49,7 @@ class User extends Component {
         };
         console.log(this.state.name, this.state.email, this.state.password, this.state.role);
         axios
-            .post("/register", newUser)
+            .post("/users/register", newUser)
             .then(function (res) {
                 alert("Registered Successfully");
                 window.location.reload();
