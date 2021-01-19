@@ -24,11 +24,11 @@ class UserLogin extends Component {
     // handleChange = e => {
     //     this.setState({ [e.target.id]: e.target.value});
     // };
-    handleChange = async (event) => {
+    handleChange = (event) => {
         const { target } = event;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const { name } = target;
-        await this.setState({ 
+        this.setState({ 
             [ name ]: value,
         });
     }

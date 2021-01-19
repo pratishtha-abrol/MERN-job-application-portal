@@ -18,7 +18,7 @@ class UserRegister extends Component {
             'name': "",
             'email': "",
             'password': "",
-            'role': ""
+            'role': "Applicant"
         };
         // this.role = [
         //     { label: "Applicant", value: "Applicant" },
@@ -27,39 +27,12 @@ class UserRegister extends Component {
         // this.handleChange = this.handleChange.bind(this);
     }
 
-    // handleChange = e => {
-    //     this.setState({ [e.target.id]: e.target.value});
-    // };
     handleChange = (event) => {
         this.setState({ 
             [ event.target.id ]: event.target.value,
         });
     }
 
-    onChange = (event) => {
-        this.setState({ role : event.target.value});
-    }
-
-    // handleSubmit = e => {
-    //     e.preventDefault();
-    //     const newUser = {
-    //         name: this.state.name,
-    //         email: this.state.email,
-    //         password: this.state.password,
-    //         role: this.state.role
-    //     };
-    //     console.log(this.state.name, this.state.email, this.state.password, this.state.role);
-    //     axios
-    //         .post("/register", newUser)
-    //         .then(function () {
-    //             alert("Registered Successfully");
-    //             window.location.reload();
-    //         })
-    //         .catch(function (res) {
-    //             alert(res.response.data[Object.keys(res.response.data)[0]]);
-    //             console.log(res);
-    //         })
-    // }   
     submitForm(e) {
         e.preventDefault();
         const newUser = {
@@ -105,7 +78,7 @@ class UserRegister extends Component {
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="select">Role</Label>
-                                        <Input type="select" name="role" id="role" value={ role } onChange={ this.onChange.bind(this) } >
+                                        <Input type="select" name="role" id="role" value={ role }  onChange={ (e) => {this.handleChange(e)} }>
                                             <option value="Applicant">Applicant</option>
                                             <option value="Recruiter">Recruiter</option>
                                         </Input>

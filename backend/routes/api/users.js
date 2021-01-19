@@ -97,7 +97,14 @@ router.post("/register", (req, res) => {
                         res.status(400).send(err);
                     });
                 userData.id = savedUser.id;
-                savedUser.role === 'Applicant' ? new Applicant(userData) : new Recruiter(userData);
+                // savedUser.role === 'Applicant' ? new Applicant(userData) : new Recruiter(userData);
+                if(savedUser.role === 'Applicant') {
+                    const newApplicant = new Applicant(userData.id)
+                    newApplicant.save()
+                } else {
+                    const newRecruiter = new Recruiter(userData.id)
+                    newRecruiter.save()
+                }
         }
     })
 
