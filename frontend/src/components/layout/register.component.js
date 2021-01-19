@@ -47,7 +47,11 @@ class UserRegister extends Component {
             .then(function (res) {
                 console.log(res);
                 alert("Registered Successfully");
-                window.location.reload();
+                // if(newUser.role === 'Recruiter') {
+                //     window.location.href('/recruiter/:id');
+                // } else {
+                //     window.location.href('/applicant/:id');
+                // }
             })
             .catch(function (res) {
                 console.log(res);
