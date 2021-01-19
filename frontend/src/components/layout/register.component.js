@@ -11,54 +11,55 @@ import {
     CardTitle
 } from 'reactstrap';
 
-class User extends Component {
-    constructor(props) {
-        super(props);
+class UserRegister extends Component {
+    constructor() {
+        super();
         this.state = {
             'name': "",
             'email': "",
             'password': "",
             'role': ""
         };
-        this.role = [
-            { label: "Applicant", value: "Applicant" },
-            { label: "Recruiter", value: "Recruiter" }
-        ];
-        this.handleChange = this.handleChange.bind(this);
+        // this.role = [
+        //     { label: "Applicant", value: "Applicant" },
+        //     { label: "Recruiter", value: "Recruiter" }
+        // ];
+        // this.handleChange = this.handleChange.bind(this);
     }
 
     // handleChange = e => {
     //     this.setState({ [e.target.id]: e.target.value});
     // };
-    handleChange = async (event) => {
-        const { target } = event;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const { name } = target;
-        await this.setState({ 
-            [ name ]: value,
+    handleChange = (event) => {
+        this.setState({ 
+            [ event.target.id ]: event.target.value,
         });
     }
 
-    handleSubmit = e => {
-        e.preventDefault();
-        const newUser = {
-            name: this.state.name,
-            email: this.state.email,
-            password: this.state.password,
-            role: this.state.role
-        };
-        console.log(this.state.name, this.state.email, this.state.password, this.state.role);
-        axios
-            .post("/users/register", newUser)
-            .then(function (res) {
-                alert("Registered Successfully");
-                window.location.reload();
-            })
-            .catch(function (err) {
-                // alert(res.response.data[Object.keys(res.response.data)[0]]);
-                console.log(err);
-            })
-    }   
+    onChange = (event) => {
+        this.setState({ role : event.target.value});
+    }
+
+    // handleSubmit = e => {
+    //     e.preventDefault();
+    //     const newUser = {
+    //         name: this.state.name,
+    //         email: this.state.email,
+    //         password: this.state.password,
+    //         role: this.state.role
+    //     };
+    //     console.log(this.state.name, this.state.email, this.state.password, this.state.role);
+    //     axios
+    //         .post("/register", newUser)
+    //         .then(function () {
+    //             alert("Registered Successfully");
+    //             window.location.reload();
+    //         })
+    //         .catch(function (res) {
+    //             alert(res.response.data[Object.keys(res.response.data)[0]]);
+    //             console.log(res);
+    //         })
+    // }   
     submitForm(e) {
         e.preventDefault();
         const newUser = {
@@ -67,14 +68,16 @@ class User extends Component {
             password: this.state.password,
             role: this.state.role
         };
-        console.log(`Email: ${ this.state.email }`);
+        console.log(newUser);
         axios
-            .post("/", newUser)
+            .post('/register', newUser)
             .then(function (res) {
+                console.log(res);
                 alert("Registered Successfully");
                 window.location.reload();
             })
             .catch(function (res) {
+                console.log(res);
                 alert(res.response.data[Object.keys(res.response.data)[0]]);
             })
     }
@@ -102,9 +105,9 @@ class User extends Component {
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="select">Role</Label>
-                                        <Input type="select" name="role" id="role" value={ role } onChange={ (e) => {this.handleChange(e)} } >
-                                            <option>Applicant</option>
-                                            <option>Recruiter</option>
+                                        <Input type="select" name="role" id="role" value={ role } onChange={ this.onChange.bind(this) } >
+                                            <option value="Applicant">Applicant</option>
+                                            <option value="Recruiter">Recruiter</option>
                                         </Input>
                                 </FormGroup>
                                 <center><Button type="submit">Register</Button></center>
@@ -117,4 +120,4 @@ class User extends Component {
     }
 };
 
-export default User;
+export default UserRegister;

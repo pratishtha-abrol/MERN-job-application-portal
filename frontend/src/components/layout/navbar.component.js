@@ -6,12 +6,8 @@ import {
     NavbarBrand,
     Nav,
     NavItem,
-    Container,
-    Button,
-    Form,
-    FormGroup,
-    Label,
-    Input
+    NavLink,
+    Container
 } from 'reactstrap';
 
 export default class AppNavbar extends Component {
@@ -35,17 +31,10 @@ export default class AppNavbar extends Component {
                         <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="ml-auto" navbar>
                                 <NavItem>
-                                    <Form inline>
-                                        <FormGroup>
-                                            <Label for="email" hidden>Email</Label>
-                                            <Input type="email" name="email" id="email" placeholder="Email"></Input>
-                                        </FormGroup>
-                                        <FormGroup>
-                                            <Label for="password" hidden>Password</Label>
-                                            <Input type="password" name="password" id="password" placeholder="Password"></Input>
-                                        </FormGroup>
-                                        <Button>Login</Button>
-                                    </Form>
+                                    <NavLink href="/register">Register</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink href="/login">Login</NavLink>
                                 </NavItem>
                             </Nav>
                         </Collapse>
