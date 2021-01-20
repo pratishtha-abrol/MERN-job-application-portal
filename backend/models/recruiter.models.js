@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const recruiterSchema = new Schema({
-    id: {
+    user: {
         type: Schema.Types.ObjectId,
         ref: 'user',
-        required: true,
+        // required: true,
         index: true
     },
     contact: {

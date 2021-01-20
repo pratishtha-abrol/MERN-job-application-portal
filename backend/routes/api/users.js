@@ -14,6 +14,20 @@ const Applicant = require('../../models/applicant.models');
 const ValidateLoginInput = require('../../validation/login');
 const ValidateRegistrationInput = require('../../validation/register');
 
+// Extra Fucntions Required
+// const createRecruiter = function(savedUser) {
+//     const newRecruiter = new Recruiter({
+//         user: savedUser
+//     });
+//     return newRecruiter.save();
+// }
+// const createApplicant = function(savedUser) {
+//     const newApplicant = new Applicant({
+//         user: savedUser
+//     });
+//     return newApplicant.save();
+// }
+
 // login
 router.post("/login", (req, res) => {
     const details = req.body;
@@ -96,14 +110,27 @@ router.post("/register", (req, res) => {
                     .catch(err => {
                         res.status(400).send(err);
                     });
-                userData.id = savedUser.id;
+                // userData.id = savedUser._id;
                 // savedUser.role === 'Applicant' ? new Applicant(userData) : new Recruiter(userData);
-                if(savedUser.role === 'Applicant') {
-                    const newApplicant = new Applicant(userData.id)
-                    newApplicant.save()
-                } else {
-                    const newRecruiter = new Recruiter(userData.id)
-                    newRecruiter.save()
+                // const userId = savedUser._id;
+            if(newUser.role === 'Applicant') {
+                const newApplicant = new Applicant({
+                    user: savedUser._id
+                });
+                newApplicant.save()
+                    .then(applicant => {
+                        console.log("Created new applicant\n", applicant)
+                    })
+                    .catch()
+            } else {
+                const newRecruiter = new Recruiter({
+                    user: savedUser._id
+                });
+                newRecruiter.save()
+                    .then(recruiter => {
+                        console.log("Created new recruiter\n", recruiter)
+                    })
+                    .catch()
                 }
         }
     })

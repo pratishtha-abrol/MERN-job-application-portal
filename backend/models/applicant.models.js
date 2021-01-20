@@ -7,33 +7,28 @@ const statuses = [
 ]
 
 const applicantSchema = new Schema({
-    id: {
+    user: {
         type: Schema.Types.ObjectId,
         ref: 'user',
-        required: true,
+        // required: true,
         index: true
     },
     skills: {
-        type: [String],
-        required: true
+        type: [String]
     },
     education: [
         {
             school: {
-                type: String,
-                required: true
+                type: String
             },
             degree: {
-                type: String,
-                required: true
+                type: String
             },
             fieldofstudy: {
-                type: String,
-                required: true
+                type: String
             },
             from: {
-                type: Date,
-                required: true
+                type: Date
             },
             to: {
                 type: Date
