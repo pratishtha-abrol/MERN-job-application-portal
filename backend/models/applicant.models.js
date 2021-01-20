@@ -7,6 +7,10 @@ const statuses = [
 ]
 
 const applicantSchema = new Schema({
+    name: {
+        type: String
+        // required: true
+    },
     user: {
         type: Schema.Types.ObjectId,
         ref: 'user',
@@ -32,10 +36,6 @@ const applicantSchema = new Schema({
             },
             to: {
                 type: Date
-            },
-            current: {
-                type: Boolean,
-                default: false
             }
         }
     ],

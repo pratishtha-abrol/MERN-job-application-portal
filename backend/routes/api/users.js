@@ -115,6 +115,7 @@ router.post("/register", (req, res) => {
                 // const userId = savedUser._id;
             if(newUser.role === 'Applicant') {
                 const newApplicant = new Applicant({
+                    name: newUser.name,
                     user: savedUser._id
                 });
                 newApplicant.save()
@@ -124,6 +125,7 @@ router.post("/register", (req, res) => {
                     .catch()
             } else {
                 const newRecruiter = new Recruiter({
+                    name: newUser.name,
                     user: savedUser._id
                 });
                 newRecruiter.save()

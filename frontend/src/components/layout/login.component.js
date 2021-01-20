@@ -21,9 +21,6 @@ class UserLogin extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    // handleChange = e => {
-    //     this.setState({ [e.target.id]: e.target.value});
-    // };
     handleChange = (event) => {
         const { target } = event;
         const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -33,24 +30,6 @@ class UserLogin extends Component {
         });
     }
 
-    // handleSubmit = e => {
-    //     e.preventDefault();
-    //     const userData = {
-    //         email: this.state.email,
-    //         password: this.state.password
-    //     };
-    //     console.log(userData);
-    //     axios
-    //         .post("/login", newUser)
-    //         .then(function () {
-    //             alert("Registered Successfully");
-    //             window.location.reload();
-    //         })
-    //         .catch(function (res) {
-    //             alert(res.response.data[Object.keys(res.response.data)[0]]);
-    //             console.log(res);
-    //         })
-    // }   
     submitForm(e) {
         e.preventDefault();
         const userData = {
@@ -62,6 +41,7 @@ class UserLogin extends Component {
             .post("/login", userData)
             .then(function (res) {
                 console.log(res);
+                window.location = "/"
             })
             .catch(function (res) {
                 alert(res.response.data[Object.keys(res.response.data)[0]]);

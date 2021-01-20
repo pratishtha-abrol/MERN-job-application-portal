@@ -47,11 +47,11 @@ class UserRegister extends Component {
             .then(function (res) {
                 console.log(res);
                 alert("Registered Successfully");
-                // if(newUser.role === 'Recruiter') {
-                //     window.location.href('/recruiter/:id');
-                // } else {
-                //     window.location.href('/applicant/:id');
-                // }
+                if(newUser.role === 'Recruiter') {
+                    window.location = '/recruiter';
+                } else {
+                    window.location = '/applicant';
+                }
             })
             .catch(function (res) {
                 console.log(res);
