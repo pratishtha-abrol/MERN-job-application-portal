@@ -1,9 +1,9 @@
 const express = require('express');
-const { model } = require('mongoose');
 const router = express.Router();
 
 // Import Models
 const Applicant = require('../../models/applicant.models');
+const ValidateApplicantInput = require('../../validation/applicant');
 
 // add all info
 router.post(("/"), (req, res) => {
@@ -11,14 +11,21 @@ router.post(("/"), (req, res) => {
     // const name = req.body.name;
     // const contact = req.body.contact;
     // const bio = req.body.bio;
+    const details = req.body;
+
+    const { errors, isValid } = ValidateApplicantInput(details);
+    if(!isValid) {
+        return res.status(400).json(errors);
+    }
     
-    Appplicant.findOneAndUpdate( { name: req.body.name } , { skills: req.body.skills, education: req.body.education, profile_image: req.body.profile_image, resume: req.body.resume })
-        .then(res => {
-            console.log(res)
-        })
-        .catch(err => {
-            console.log(err)
-        })
+    Applicant.findOneAndUpdate( { name: req.body.name } , { skills: req.body.skills, education: req.body.education, profile_image: req.body.profile_image, resume: req.body.resume })
+    .then(updatedDoc => {
+        if(updatedDoc) {
+            res.send()
+        } else {
+            return res.status(400).json({ name: "Name does not exist" });
+        }
+    })
 });
 
 
