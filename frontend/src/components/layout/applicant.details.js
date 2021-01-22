@@ -11,7 +11,7 @@ import {
     CardTitle
 } from 'reactstrap';
 // import Select from 'react-select';
-// import CreatableSelect from 'react-select/creatable';
+import CreatableSelect from 'react-select/creatable';
 
 let skillset = [
     { value: 'C', label: 'C' },
@@ -23,7 +23,7 @@ let skillset = [
     { value: 'Java', label: 'Java' },
     { value: 'CSS', label: 'CSS' },
     { value: 'Bash', label: 'Bash' },
-    { value: 'JavaScript', label: 'JavaScript' }
+    { value: 'JavaScript', label: 'JavaScript' },
 ];
 
 class ApplicantDetails extends Component {
@@ -31,6 +31,7 @@ class ApplicantDetails extends Component {
         super(props);
         this.state = {
             name: "",
+            showskills: [],
             skills: [],
             education: [{
                 school: "",
@@ -50,6 +51,14 @@ class ApplicantDetails extends Component {
         });
     }
 
+    onChange = (event) => {
+        let array = [];
+        for (var i=0; i<event.length; i++) {
+            array.push(event[i].value);
+        }
+        this.setState({ showskills: event, skills: array});
+        console.log(array);
+    }
 
     submitForm(e) {
         e.preventDefault();
@@ -91,7 +100,7 @@ class ApplicantDetails extends Component {
                                 <FormGroup>
                                     <Label for="skills">Skills</Label>
                                     {/* <Select isMulti value={ skills } onChange={ this.onChange } options={ skillset } closeMenuOnSelect={false} /> */}
-                                    {/* <CreatableSelect isMulti onChange={ this.onChange } options={ skillset } value={ skills } closeMenuOnSelect={false}/> */}
+                                    <CreatableSelect isMulti options={ skillset } value={ this.state.showskills } closeMenuOnSelect={false} placeholder="select" onChange={ this.onChange } />
                                 </FormGroup>
                                 
                                 <FormGroup>
