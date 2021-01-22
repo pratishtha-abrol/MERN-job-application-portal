@@ -6,6 +6,10 @@ const statuses = [
     'Active', 'Expired', 'Alotted', 'Deleted'
 ]
 
+const jobtype = [
+    'Full Time', 'Part Time', 'Internship'
+]
+
 const mongoose_fuzzy_searching = require("mongoose-fuzzy-searching");
 
 const jobSchema = new Schema({
@@ -44,7 +48,8 @@ const jobSchema = new Schema({
     },
     type: {
         type: String,
-        required: true
+        default: "Full Time",
+        enum: jobtype
     },
     salary: {
         type: String
@@ -53,10 +58,10 @@ const jobSchema = new Schema({
         type: String,
         default: "Active",
         enum: statuses
-    // },
-    // postedby: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'recruiter'
+    },
+    postedby: {
+        type: Schema.Types.ObjectId,
+        ref: 'recruiter'
     }
 }, {
     timestamps: true,

@@ -1,8 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const ValidateCreateJobs = require('../../validation/createjobs');
+
 
 // Job Model
 const Job = require('../../models/job.models');
+const Recruiter = require('../../models/recruiter.models');
+
 
 // @route GET api/jobs; @desc Get all jobs
 router.get('/', (req, res) => {
@@ -12,17 +16,29 @@ router.get('/', (req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-// @route POST api/jobs; @desc Create a jobs
-router.post('/', (req, res) => {
-    const newJob = new Job({
-        title: req.body.title,
-        maxApplicants: req.body.maxApplicants,
-        deadline: req.body.deadline,
-        numberOfPositions: req.body.numberOfPositions,
-        requiredSkills: req.body.requiredSkills,
-        duration: req.body.duration,
-        type: req.body.type
-    });
+// @route POST api/jobs; @desc Create a job
+router.post('/create', (req, res) => {
+
+    const JobData = req.body;
+
+    const { errors, isValid } = ValidateCreateJobs(JobData);
+    if(!isValid) {
+        return res.status(400).json(errors);
+    }
+
+    const newJob = new Job( JobData
+        // {
+        // title: req.body.title,
+        // maxApplicants: req.body.maxApplicants,
+        // deadline: req.body.deadline,
+        // numberOfPositions: req.body.numberOfPositions,
+        // requiredSkills: req.body.requiredSkills,
+        // duration: req.body.duration,
+        // type: req.body.type,
+        // salary: req.body.salary,
+        // postedby: req.body.postedby
+        // }
+    );
 
     newJob.save().then(job => res.json(job));
 });

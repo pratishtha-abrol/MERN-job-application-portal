@@ -20,7 +20,7 @@ class Welcome extends Component {
 			// 	Hello {ls.get("username")}. You are a {ls.get("role")}
 			// </h3>
 			<div>
-				{ls.get("role") === "Applicant" ? (
+				{ls.get("userrole") === "Applicant" ? (
 					<center>Hello there, Applicant {ls.get("username")}</center>
 				) : (
 					<center>Hello there, Recruiter {ls.get("username")}</center>

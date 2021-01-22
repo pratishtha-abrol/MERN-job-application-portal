@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 require('dotenv').config();
 
-// const jobs = require('./routes/api/jobs');
+const jobs = require('./routes/api/jobs');
 const users = require('./routes/api/users');
 const applicant = require('./routes/api/applicants');
 const recruiter = require('./routes/api/recruiters');
@@ -25,7 +25,7 @@ connection.once('open', () => {
 });
 
 // Use Routes
-// app.use('/jobs', jobs);
+app.use('/jobs', jobs);
 app.use('/', users);
 app.use('/applicant', applicant);
 app.use('/recruiter', recruiter);
