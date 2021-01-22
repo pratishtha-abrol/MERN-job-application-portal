@@ -7,9 +7,18 @@ import {
     FormGroup,
     Label,
     Input,
-    CardTitle
+    CardTitle,
+    Collapse,
+    Navbar,
+    NavbarToggler,
+    NavbarBrand,
+    Nav,
+    NavItem,
+    NavLink,
+    Container
 } from 'reactstrap';
 import axios from 'axios';
+import ls from 'local-storage';
 
 class UserLogin extends Component {
     constructor(props) {
@@ -40,8 +49,13 @@ class UserLogin extends Component {
         axios
             .post("/login", userData)
             .then(function (res) {
+                ls.set("auth", "true");
                 console.log(res);
-                window.location = "/"
+                ls.set("username", res.data.user.name);
+                ls.set("email", res.data.user.email);
+                ls.set("role", res.data.user.role);
+                alert("Logged in!");
+                window.location = "/";
             })
             .catch(function (res) {
                 alert(res.response.data[Object.keys(res.response.data)[0]]);
@@ -52,6 +66,25 @@ class UserLogin extends Component {
         const { email, password } = this.state;
         return(
             <div>
+                <div>
+                <Navbar color="dark" dark expand="sm" className="mb-5">
+                    <Container>
+                        <NavbarBrand href="/">Job Application Portal</NavbarBrand>
+                        <NavbarToggler onClick={this.toggle} />
+                        <Collapse isOpen={this.state.isOpen} navbar>
+                            <Nav className="ml-auto" navbar>
+                                <NavItem>
+                                    <NavLink href="/register">Register</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink href="/login">Login</NavLink>
+                                </NavItem>
+                            </Nav>
+                        </Collapse>
+                    </Container>
+                </Navbar>
+                </div>
+                <div>
                 <center>
                     <Col sm="6">
                         <Card body>
@@ -70,6 +103,7 @@ class UserLogin extends Component {
                         </Card>
                     </Col>
                 </center>
+                </div>
             </div>
         );
     }

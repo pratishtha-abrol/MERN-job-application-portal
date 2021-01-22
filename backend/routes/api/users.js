@@ -50,18 +50,56 @@ router.post("/login", (req, res) => {
 			});
         }
         else{
-            res.send("Email Found");
+            // res.send("Email Found");
             // Check Password
-            bcrypt.compare(password, user.password).then(ifCorrect => {
-                if (ifCorrect) {
+            // bcrypt.compare(password, user.password)
+            //     .then(ifCorrect => {
+            //         if (ifCorrect) {
+            //             const payload = {
+            //                 id: user.id,
+            //                 name: user.name
+            //             };
+            //             jwt.sign(
+            //                 payload,
+            //                 process.env.APP_SECRET,
+            //                 {
+            //                     expiresIn: 31556926
+            //                 },
+            //                 (err, token) => {
+            //                     res.json({
+            //                         success: true,
+            //                         token: "Bearer " + token,
+            //                         user: user
+            //                     });
+            //                 }
+            //             )
+            //         } else {
+            //             return res.status(400).json({
+            //                 error: "Password Incorrect",
+            //                 passwordincorrect: "Password incorrect"
+            //             });
+            //         }
+            //     })
+            bcrypt.compare(password, user.password, (err, isMatch) => {
+                if (err) throw err;
+                else if (!isMatch) {
+                    res.status(400).json({
+                        error: "Password Incorrect",
+                        passwordincorrect: "Password incorrect"
+                    })
+                } else {
                     const payload = {
                         id: user.id,
-                        name: user.name
+                        name: user.name,
+                        role: user.role
                     };
                     jwt.sign(
                         payload,
-                        APP_SECRET,
-                        (err, token) => {
+                        process.env.APP_SECRET,
+                        {
+                            expiresIn: 31556926
+                        },
+                        (error, token) => {
                             res.json({
                                 success: true,
                                 token: "Bearer " + token,
@@ -69,15 +107,11 @@ router.post("/login", (req, res) => {
                             });
                         }
                     )
-                } else {
-                    return res.status(400).json({
-                        error: "Password Incorrect",
-                        passwordincorrect: "Password incorrect"
-                    });
                 }
-            });
+            })
         }
-    });
+    })
+    .catch();
     
 });
 

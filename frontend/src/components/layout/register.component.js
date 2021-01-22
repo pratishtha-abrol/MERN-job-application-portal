@@ -8,7 +8,15 @@ import {
     FormGroup,
     Label,
     Input,
-    CardTitle
+    CardTitle,
+    Collapse,
+    Navbar,
+    NavbarToggler,
+    NavbarBrand,
+    Nav,
+    NavItem,
+    NavLink,
+    Container
 } from 'reactstrap';
 
 class UserRegister extends Component {
@@ -63,6 +71,25 @@ class UserRegister extends Component {
         const { name, email, password, role } = this.state;
         return(
             <div>
+                <div>
+                <Navbar color="dark" dark expand="sm" className="mb-5">
+                    <Container>
+                        <NavbarBrand href="/">Job Application Portal</NavbarBrand>
+                        <NavbarToggler onClick={this.toggle} />
+                        <Collapse isOpen={this.state.isOpen} navbar>
+                            <Nav className="ml-auto" navbar>
+                                <NavItem>
+                                    <NavLink href="/register">Register</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink href="/login">Login</NavLink>
+                                </NavItem>
+                            </Nav>
+                        </Collapse>
+                    </Container>
+                </Navbar>
+                </div>
+                <div>
                 <center>
                     <Col sm="6">
                         <Card body>
@@ -92,6 +119,7 @@ class UserRegister extends Component {
                         </Card>
                     </Col>
                 </center>
+                </div>
             </div>
         );
     }
