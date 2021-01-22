@@ -40,8 +40,8 @@ class ApplicantDetails extends Component {
                 from: "",
                 to: ""
             }],
-            profile_image: "",
-            resume: ""
+            // profile_image: "",
+            // resume: ""
         };
     }
 
@@ -65,10 +65,12 @@ class ApplicantDetails extends Component {
         const data = {
             name: this.state.name,
             skills: this.state.skills,
-            education: this.state.education,
-            profile_image: this.state.profile_image,
-            resume: this.state.resume
+            education: this.state.education
+            // profile_image: this.state.profile_image,
+            // resume: this.state.resume
         }
+        // data.append('pp', this.state.profile_image);
+        // data.append('r', this.state.resume);
         // console.log(data);
         axios
             .post('/applicant', data)
@@ -84,8 +86,99 @@ class ApplicantDetails extends Component {
             // window.location = '/';
     }
 
+    // Education
+
+    // createUI() {
+    //     return this.state.education.map((el, i) => (
+    //         <div key={i}>
+    //             <FormGroup>
+    //                 <Label for="school">School</Label>
+    //                 <Input type="text" name="school" id="school" placeholder="institution name" value={ education.school } onChange={ this.handler.bind(this, i) } />
+    //             </FormGroup>
+    //             <FormGroup>
+    //                 <Label for="degree">Degree</Label>
+    //                 <Input type="text" name="degree" id="degree" placeholder="degree" value={ education.degree } onChange={ this.handler.bind(this, i) } />
+    //             </FormGroup>
+    //             <FormGroup>
+    //                 <Label for="fieldofstudy">Field of Study</Label>
+    //                 <Input type="text" name="fieldofstudy" id="fieldofstudy" placeholder="field of study" value={ education.fieldofstudy } onChange={ this.handler.bind(this, i) } />
+    //             </FormGroup>
+    //             <FormGroup>
+    //                 <Label for="from">Start Date</Label>
+    //                 <Input type="date" name="from" id="from" placeholder="from" value={ education.from } onChange={ this.handler.bind(this, i) } />
+    //             </FormGroup>
+    //             <FormGroup>
+    //                 <Label for="to">End Date</Label>
+    //                 <Input type="date" name="to" id="to" placeholder="to" value={ education.to } onChange={ this.handler.bind(this, i) } />
+    //             </FormGroup>
+    //             <Button value="remove" onClick={ this.removeClick.bind(this, i) } />
+    //         </div>
+    //     ))
+    // }
+
+    schoolhandler (i, event) {
+        let education = [...this.state.education];
+        education[i].school = event.target.value;
+        this.setState({ education });
+    }
+
+    degreehandler (i, event) {
+        let education = [...this.state.education];
+        education[i].degree = event.target.value;
+        this.setState({ education });
+    }
+
+    fieldofstudyhandler (i, event) {
+        let education = [...this.state.education];
+        education[i].fieldofstudy = event.target.value;
+        this.setState({ education });
+    }
+
+    fromhandler (i, event) {
+        let education = [...this.state.education];
+        education[i].from = event.target.value;
+        this.setState({ education });
+    }
+
+    tohandler (i, event) {
+        let education = [...this.state.education];
+        education[i].to = event.target.value;
+        this.setState({ education });
+    }
+
+    addClick() {
+        this.setState(prevState => ({
+            education: [...prevState.education, {
+                school: "",
+                degree: "",
+                fieldofstudy: "",
+                from: "",
+                to: ""
+            }]
+        }));
+    }
+    removeClick(i) {
+        let education = [...this.state.education];
+        education.splice(i, 1);
+        this.setState({ education });
+    }
+
+    // files
+
+    // ProfileChangehandler (e) {
+    //     e.preventDefault();
+    //     this.setState({ profile_image: e.target.files[0], loaded1:0,});
+    // }
+
+    // ResumeChangehandler (e) {
+    //     e.preventDefault();
+    //     this.setState({ resume: e.target.files[0], loaded1:0,});
+    // }
+
+    // render
+
     render() {
-        let { name, skills, profile_image, resume } = this.state;
+        let { name, school, degree, fieldofstudy, from, to } = this.state;
         return(
             <div>
                 <center>
@@ -102,15 +195,48 @@ class ApplicantDetails extends Component {
                                     {/* <Select isMulti value={ skills } onChange={ this.onChange } options={ skillset } closeMenuOnSelect={false} /> */}
                                     <CreatableSelect isMulti options={ skillset } value={ this.state.showskills } closeMenuOnSelect={false} placeholder="select" onChange={ this.onChange } />
                                 </FormGroup>
-                                
                                 <FormGroup>
+                                    <Label for="education">Education</Label>
+                                {this.state.education.map((el, i) => (
+                                    <div key={i}>
+                                        <FormGroup>
+                                            <Label for="school">School</Label>
+                                            <Input type="text" name="school" id="school" placeholder="institution name" value={ school } onChange={ this.schoolhandler.bind(this, i) } />
+                                        </FormGroup>
+                                        <FormGroup>
+                                            <Label for="degree">Degree</Label>
+                                            <Input type="text" name="degree" id="degree" placeholder="degree" value={ degree } onChange={ this.degreehandler.bind(this, i) } />
+                                        </FormGroup>
+                                        <FormGroup>
+                                            <Label for="fieldofstudy">Field of Study</Label>
+                                            <Input type="text" name="fieldofstudy" id="fieldofstudy" placeholder="field of study" value={ fieldofstudy } onChange={ this.fieldofstudyhandler.bind(this, i) } />
+                                        </FormGroup>
+                                        <FormGroup>
+                                            <Label for="from">Start Date</Label>
+                                            <Input type="date" name="from" id="from" placeholder="from" value={ from } onChange={ this.fromhandler.bind(this, i) } />
+                                        </FormGroup>
+                                        <FormGroup>
+                                            <Label for="to">End Date</Label>
+                                            <Input type="date" name="to" id="to" placeholder="to" value={ to } onChange={ this.tohandler.bind(this, i) } />
+                                        </FormGroup>
+                                        <Button value="Remove" onClick={ this.removeClick.bind(this, i) } >Remove</Button>
+                                    </div>
+                                ))}
+                                
+                                </FormGroup>
+                                <FormGroup>
+                                <Button value="Add" onClick={ () => this.addClick() } >Add</Button>
+                                </FormGroup>
+                                {/* <FormGroup>
                                     <Label for="profilepic">Profile Picture</Label>
-                                    <Input type="file" name="pp" id="pp" value={ profile_image } onChange={ (e) => {this.handleChange(e)} } />
+                                    <Input type="file" name="pp" id="pp" value={ profile_image } onChange={ (e) => {this.ProfileChangehandler(e)} } />
+                                    <Button onClick={ this.upload }>Upload</Button>
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="resume">Resume</Label>
-                                    <Input type="file" name="r" id="r" value={ resume } onChange={ (e) => {this.handleChange(e)} } />
-                                </FormGroup>
+                                    <Input type="file" name="r" id="r" value={ resume } onChange={ (e) => {this.ResumeChangehandler(e)} } />
+                                    <Button onClick={ this.upload }>Upload</Button>
+                                </FormGroup> */}
                                 <center><Button type="submit">Submit</Button></center>
                             </Form>
                         </Card>
