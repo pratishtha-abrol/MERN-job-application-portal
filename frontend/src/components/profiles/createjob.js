@@ -7,7 +7,15 @@ import {
     FormGroup,
     Label,
     Input,
-    CardTitle
+    CardTitle,
+    Collapse,
+    Navbar,
+    NavbarToggler,
+    NavbarBrand,
+    Nav,
+    NavItem,
+    NavLink,
+    Container
 } from 'reactstrap';
 import axios from 'axios';
 import ls from 'local-storage';
@@ -119,6 +127,25 @@ class CreateJobs extends Component {
         return(
             <div>
                 <div>
+                <Navbar color="dark" dark expand="sm" className="mb-5">
+					<Container>
+						<NavbarBrand href="/">Welcome, {ls.get("username")}</NavbarBrand>
+						<NavbarToggler onClick={this.toggle} />
+						<Collapse isOpen={this.state.isOpen} navbar>
+							<Nav className="ml-auto" navbar>
+								<NavItem>
+									<NavLink href="/jobs/create">Create Job</NavLink>
+								</NavItem>
+								<NavItem>
+									<NavLink href="/recruiter">Edit Profile</NavLink>
+								</NavItem>
+                                <NavItem>
+									<NavLink href="/recruiter/profile">View Profile</NavLink>
+								</NavItem>
+							</Nav>
+						</Collapse>
+					</Container>
+				</Navbar>
                 <center>
                     <Col sm="6">
                         <Card body>

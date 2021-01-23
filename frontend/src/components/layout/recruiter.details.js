@@ -8,8 +8,17 @@ import {
     FormGroup,
     Label,
     Input,
-    CardTitle
+    CardTitle,
+    Collapse,
+    Navbar,
+    NavbarToggler,
+    NavbarBrand,
+    Nav,
+    NavItem,
+    NavLink,
+    Container
 } from 'reactstrap';
+import ls from 'local-storage';
 
 class RecruiterDetails extends Component {
     constructor() {
@@ -54,6 +63,44 @@ class RecruiterDetails extends Component {
         const { name, contact, bio } = this.state;
         return(
             <div>
+                {ls.get("auth") === "true" ? (
+                    <Navbar color="dark" dark expand="sm" className="mb-5">
+                        <Container>
+                            <NavbarBrand href="/">Welcome, {ls.get("username")}</NavbarBrand>
+                            <NavbarToggler onClick={this.toggle} />
+                            <Collapse isOpen={this.state.isOpen} navbar>
+                                <Nav className="ml-auto" navbar>
+                                    <NavItem>
+                                        <NavLink href="/jobs/create">Create Job</NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink href="/recruiter">Edit Profile</NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink href="/recruiter/profile">View Profile</NavLink>
+                                    </NavItem>
+                                </Nav>
+                            </Collapse>
+                        </Container>
+                    </Navbar>
+                ) : (
+                    <Navbar color="dark" dark expand="sm" className="mb-5">
+                        <Container>
+                            <NavbarBrand href="/">Job Application Portal</NavbarBrand>
+                            <NavbarToggler onClick={this.toggle} />
+                            <Collapse isOpen={this.state.isOpen} navbar>
+                                <Nav className="ml-auto" navbar>
+                                    <NavItem>
+                                        <NavLink href="/register">Register</NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink href="/login">Login</NavLink>
+                                    </NavItem>
+                                </Nav>
+                            </Collapse>
+                        </Container>
+                    </Navbar>
+                )}
                 <center>
                     <Col sm="6">
                         <Card body>
