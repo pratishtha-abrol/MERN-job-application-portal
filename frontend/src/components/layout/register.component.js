@@ -97,7 +97,7 @@ class UserRegister extends Component {
                             <Form className="form" onSubmit={ (e) => this.submitForm(e) }>
                                 <FormGroup>
                                     <Label for="name">Name</Label>
-                                        <Input type="name" name="name" id="name" placeholder="full name" value={ name } onChange={ (e) => {this.handleChange(e)} } />
+                                        <Input type="name" name="name" id="name" placeholder="unique full name" value={ name } onChange={ (e) => {this.handleChange(e)} } />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="email">Email</Label>

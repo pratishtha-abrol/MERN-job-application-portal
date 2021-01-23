@@ -128,46 +128,53 @@ router.post("/register", (req, res) => {
         if (ifExists) {
             return res.status(400).json({ email: "Email already exists" });
         } else {
-            const newUser = new User(userData);
+            USer.findOne({ name: userData.username }).then(ifExists => {
+                if (ifExists) {
+                    return res.status(400).json({ email: "Name already exists" });
+                } else {
+                    const newUser = new User(userData);
 
-            bcrypt.genSalt(10, (err, salt) => {
-                bcrypt.hash(newUser.password, salt, null, (err, hash) => {
-                    if (err) throw err;
-					newUser.password = hash;
-                });
-            });
-
-            const savedUser = newUser.save()
-                    .then(user => {
-                        res.status(200).json(user);
-                    })
-                    .catch(err => {
-                        res.status(400).send(err);
+                    bcrypt.genSalt(10, (err, salt) => {
+                        bcrypt.hash(newUser.password, salt, null, (err, hash) => {
+                            if (err) throw err;
+                            newUser.password = hash;
+                        });
                     });
-                // userData.id = savedUser._id;
-                // savedUser.role === 'Applicant' ? new Applicant(userData) : new Recruiter(userData);
-                // const userId = savedUser._id;
-            if(newUser.role === 'Applicant') {
-                const newApplicant = new Applicant({
-                    name: newUser.name,
-                    user: savedUser._id
-                });
-                newApplicant.save()
-                    .then(applicant => {
-                        console.log("Created new applicant\n", applicant)
-                    })
-                    .catch()
-            } else {
-                const newRecruiter = new Recruiter({
-                    name: newUser.name,
-                    user: savedUser._id
-                });
-                newRecruiter.save()
-                    .then(recruiter => {
-                        console.log("Created new recruiter\n", recruiter)
-                    })
-                    .catch()
+
+                    const savedUser = newUser.save()
+                            .then(user => {
+                                res.status(200).json(user);
+                            })
+                            .catch(err => {
+                                res.status(400).send(err);
+                            });
+                        // userData.id = savedUser._id;
+                        // savedUser.role === 'Applicant' ? new Applicant(userData) : new Recruiter(userData);
+                        // const userId = savedUser._id;
+                    if(newUser.role === 'Applicant') {
+                        const newApplicant = new Applicant({
+                            name: newUser.name,
+                            user: savedUser._id
+                        });
+                        newApplicant.save()
+                            .then(applicant => {
+                                console.log("Created new applicant\n", applicant)
+                            })
+                            .catch()
+                    } else {
+                        const newRecruiter = new Recruiter({
+                            name: newUser.name,
+                            user: savedUser._id
+                        });
+                        newRecruiter.save()
+                            .then(recruiter => {
+                                console.log("Created new recruiter\n", recruiter)
+                            })
+                            .catch()
+                        }
                 }
+            })
+            
         }
     })
 

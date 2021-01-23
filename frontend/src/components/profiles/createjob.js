@@ -68,20 +68,25 @@ class CreateJobs extends Component {
         console.log(array);
     }
 
-    // checkauthorisation() {
-    //     const user = ls.get("user");
-    //     console.log(user);
-    //     axios
-    //         .post("/recruiter/find", user)
-    //         .then(function(res) {
-    //             ls.set("recruiterid", res.data.id);
-    //             alert("Authorisation Allowed");
-    //         })
-    //         .catch(function(res) {
-    //             alert(res.response.data[Object.keys(res.response.data)[0]]);
-    //             window.location = "/";
-    //         })       
-    // }
+    checkauthorisation() {
+        const user = ls.get("userrole");
+        console.log(user);
+        // axios
+        //     .post("/recruiter/find", user)
+        //     .then(function(res) {
+        //         ls.set("recruiterid", res.data.id);
+        //         console.log(ls.get("recruiterid"));
+        //         // alert("Authorisation Allowed");s
+        //     })
+        //     .catch(function(res) {
+        //         alert(res.response.data[Object.keys(res.response.data)[0]]);
+        //         window.location = "/";
+        //     })       
+        if (user === "Applicant") {
+            alert("Authorisation Prohibitted");
+            window.location = "/";
+        }
+    }
 
     submitForm(e) {
         e.preventDefault();
@@ -94,7 +99,7 @@ class CreateJobs extends Component {
             type: this.state.type,
             duration: this.state.duration,
             salary: this.state.salary,
-            // postedby: ls.get("recruiterid")
+            postedby: ls.get("username")
         };
         console.log(`Title: ${ this.state.title }`);
         axios
@@ -155,12 +160,12 @@ class CreateJobs extends Component {
                                     <Label for="skills">Skills</Label>
                                     <CreatableSelect isMulti options={ skillset } value={ this.state.showskills } closeMenuOnSelect={false} placeholder="select" onChange={ this.onChange } />
                                 </FormGroup>
-                                {/* <FormGroup check>
+                                <FormGroup check>
                                     <Label check>
                                     <Input type="radio" name="radio2" onClick={ this.checkauthorisation } />{' '}
                                     User Validation Required
                                     </Label>
-                                </FormGroup> */}
+                                </FormGroup>
                                 <center><Button type="submit">Create</Button></center>
                             </Form>
                         </Card>

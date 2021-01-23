@@ -60,8 +60,8 @@ const jobSchema = new Schema({
         enum: statuses
     },
     postedby: {
-        type: Schema.Types.ObjectId,
-        ref: 'recruiter'
+        type: String,
+        required: true
     }
 }, {
     timestamps: true,

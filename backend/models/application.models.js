@@ -16,11 +16,6 @@ const applicationSchema = new Schema({
     ref: 'User',
     required: true
   },
-  recruiterId: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  },
   resume: {
     type: String,
     required: true

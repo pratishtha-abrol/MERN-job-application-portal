@@ -37,18 +37,4 @@ router.post(("/"), (req, res) => {
     //         }})    
 });
 
-// router.post(("/find"), (req, res) => {
-//     const user = req.body.user;
-//     Recruiter.findOne({ user : user }).then(recruiter => {
-//         if(!recruiter) {
-//             return res.status(404).json({
-//                 error: "Authorisation Prohibited",
-//                 authorisationprohibited: "Authorisation Prohibited"
-//             });
-//         } else {
-//             console.log("Authorisation Allowed");
-//         }
-//     })
-// });
-
 module.exports = router;
