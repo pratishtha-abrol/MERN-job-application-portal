@@ -10,6 +10,7 @@ import RecruiterDetails from './components/layout/recruiter.details';
 import ApplicantDetails from './components/layout/applicant.details';
 import Welcome from './components/profiles/welcome';
 import CreateJobs from './components/profiles/createjob';
+import Profile from './components/profiles/profile';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route exact path="/recruiter" component={RecruiterDetails} />
         <Route exact path="/applicant" component={ApplicantDetails} />
         <Route exact path="/jobs/create" component={CreateJobs} />
+        <Route exact path="/profile" component={Profile} />
       </div>
     </Router>
   );

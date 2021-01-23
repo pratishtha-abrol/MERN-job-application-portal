@@ -29,6 +29,19 @@ router.post(("/"), (req, res) => {
 });
 
 
+// find by name
+// router.post(("/find"), (req, res) => {
+//     Applicant.findOne({name: req})
+//         .then(applicant => {
+//             if(applicant) {
+//                 res.send()
+//             } else {
+//                 return res.status(400).json({ name: "Cannot build profile" });
+//             }
+//         })
+// });
+
+
 // // @route POST /applicant; All jobs
 // router.post('/jobs', (req, res) => {
 //     const query = req.body;

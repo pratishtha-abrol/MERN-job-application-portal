@@ -9,10 +9,17 @@ import {
     Nav,
     NavItem,
     NavLink,
-    Container
+	Container
 } from 'reactstrap';
+// import axios from 'axios';
 
 class Welcome extends Component {
+	constructor(props) {
+		super(props);
+		this.state= {
+
+		}
+	}
 
 	state = {
         isOpen: true
@@ -23,6 +30,29 @@ class Welcome extends Component {
             isOpen: !this.state.isOpen
         });
 	}
+
+	onClick() {
+		ls.set("auth", "false");
+		window.location="/";
+	}
+
+	// createProfile (e) {
+	// 	const user = ls.get("username");
+	// 	const role = ls.get("userrole")
+	// 	console.log(user, role);
+	// 	if (ls.get("userrole") === "Applicant") {
+	// 		axios
+	// 			.post("/applicant/find", user)
+	// 			.then(function (response) {
+	// 				console.log(response);
+	// 				window.location = "/profile";
+	// 			})
+	// 			.catch(function (res) {
+	// 				console.log(res);
+    //             	alert(res.response.data[Object.keys(res.response.data)[0]]);
+	// 			})
+	// 	}
+	// }
 	
 	render() {
 		return (
@@ -45,8 +75,11 @@ class Welcome extends Component {
 										<NavItem>
 											<NavLink href="/applicant">Edit Profile</NavLink>
 										</NavItem>
+										{/* <NavItem>
+											<NavLink onClick={() => console.log(ls.get("username"))} >View Profile</NavLink>
+										</NavItem> */}
 										<NavItem>
-											<NavLink href="/applicant/profile">View Profile</NavLink>
+											<NavLink onClick={this.onClick}>Logout</NavLink>
 										</NavItem>
 									</Nav>
 								</Collapse>
@@ -68,8 +101,11 @@ class Welcome extends Component {
 										<NavItem>
 											<NavLink href="/recruiter">Edit Profile</NavLink>
 										</NavItem>
+										{/* <NavItem>
+											<NavLink onClick={() => console.log(ls.get("username"))} >View Profile</NavLink>
+										</NavItem> */}
 										<NavItem>
-											<NavLink href="/recruiter/profile">View Profile</NavLink>
+											<NavLink onClick={this.onClick}>Logout</NavLink>
 										</NavItem>
 									</Nav>
 								</Collapse>

@@ -8,6 +8,7 @@ module.exports = function CreateJobs (data) {
     data.numberOfPositions = !isEmpty(data.numberOfPositions) ? data.numberOfPositions : "";
     data.type = !isEmpty(data.type) ? data.type : "";
     data.deadline = !isEmpty(data.deadline) ? data.deadline : "";
+    data.duration = !isEmpty(data.duration) ? data.duration : "";
 
     if (validator.isEmpty(data.title)) {
         errors.title = "Please enter the title";
@@ -19,7 +20,10 @@ module.exports = function CreateJobs (data) {
         errors.type = "Please enter the type";
     }
     if (validator.isEmpty(data.deadline)) {
-        errors.deadline = "Please enter the type";
+        errors.deadline = "Please enter the deadline";
+    }
+    if (validator.isEmpty(data.duration)) {
+        errors.duration = "Please enter the duration";
     }
 
     return {

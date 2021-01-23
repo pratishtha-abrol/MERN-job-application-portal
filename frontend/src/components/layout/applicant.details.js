@@ -8,19 +8,14 @@ import {
     FormGroup,
     Label,
     Input,
-    CardTitle,
-    Collapse,
-    Navbar,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    NavItem,
-    NavLink,
-    Container
+    CardTitle
 } from 'reactstrap';
 // import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import ls from 'local-storage';
+
+import Welcome from '../profiles/welcome';
+import Navbar from './navbar.component';
 
 let skillset = [
     { value: 'C', label: 'C' },
@@ -191,42 +186,9 @@ class ApplicantDetails extends Component {
         return(
             <div>
                 {ls.get("auth") === "true" ? (
-                    <Navbar color="dark" dark expand="sm" className="mb-5">
-                        <Container>
-                            <NavbarBrand href="/">Welcome, {ls.get("username")}</NavbarBrand>
-                            <NavbarToggler onClick={this.toggle} />
-                            <Collapse isOpen={this.state.isOpen} navbar>
-                                <Nav className="ml-auto" navbar>
-                                    <NavItem>
-											<NavLink href="/applications">My Applications</NavLink>
-									</NavItem>
-									<NavItem>
-										<NavLink href="/applicant">Edit Profile</NavLink>
-									</NavItem>
-                                    <NavItem>
-										<NavLink href="/applicant/profile">View Profile</NavLink>
-									</NavItem>
-                                </Nav>
-                            </Collapse>
-                        </Container>
-                    </Navbar>
+                    <Welcome />
                 ) : (
-                    <Navbar color="dark" dark expand="sm" className="mb-5">
-                        <Container>
-                            <NavbarBrand href="/">Job Application Portal</NavbarBrand>
-                            <NavbarToggler onClick={this.toggle} />
-                            <Collapse isOpen={this.state.isOpen} navbar>
-                                <Nav className="ml-auto" navbar>
-                                    <NavItem>
-                                        <NavLink href="/register">Register</NavLink>
-                                    </NavItem>
-                                    <NavItem>
-                                        <NavLink href="/login">Login</NavLink>
-                                    </NavItem>
-                                </Nav>
-                            </Collapse>
-                        </Container>
-                    </Navbar>
+                    <Navbar />
                 )}
                 <center>
                     <Col sm="6">
