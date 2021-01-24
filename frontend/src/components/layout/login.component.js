@@ -52,6 +52,7 @@ class UserLogin extends Component {
                 ls.set("auth", "true");
                 console.log(res);
                 // ls.set("user", res.data.id);
+                ls.set("userid", res.data.user.id);
                 ls.set("username", res.data.user.name);
                 ls.set("useremail", res.data.user.email);
                 ls.set("userrole", res.data.user.role);

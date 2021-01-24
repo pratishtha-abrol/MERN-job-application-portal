@@ -11,14 +11,13 @@ const applicationSchema = new Schema({
     ref: 'Job',
     required: true
   },
-  applicantId: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
+  applicantname: {
+    type: String,
     required: true
   },
   resume: {
-    type: String,
-    required: true
+    type: String
+    // required: true
   },
   message: {
     type: String,

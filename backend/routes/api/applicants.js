@@ -4,6 +4,7 @@ const router = express.Router();
 // Import Models
 const Applicant = require('../../models/applicant.models');
 const ValidateApplicantInput = require('../../validation/applicant');
+const Application = require('../../models/application.models');
 
 // add all info
 router.post(("/"), (req, res) => {
@@ -58,23 +59,6 @@ router.post(("/"), (req, res) => {
 //         .sort({ date: -1 })
 //         .then(jobs => res.json(jobs))
 //         .catch(err => res.status(400).json('Error: ' + err));
-// });
-
-// // @route POST /applicant; Apply
-// router.post('/jobs/apply', (req, res) => {
-//     const details = req.body;
-//     console.log(details);
-//     const id = details.jobId;
-//     const message = details.message;
-//     const newApplication = new Application(details)
-//     newApplication.status = 'Applied';
-//     newApplication.save()
-//         .then(application => {
-//             res.status(200).json(application);
-//         })
-//         .catch(err => {
-//             res.status(400).send(err);
-//         });
 // });
 
 module.exports = router;

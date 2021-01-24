@@ -67,7 +67,7 @@ class CreateJobs extends Component {
         for (var i=0; i<event.length; i++) {
             array.push(event[i].value);
         }
-        this.setState({ showskills: event, skills: array});
+        this.setState({ showskills: event, requiredSkills: array});
         console.log(array);
     }
 
