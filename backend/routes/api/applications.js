@@ -20,6 +20,16 @@ router.post('/status', (req, res) => {
         .then(doc => {
             res.send(doc)
         })
-})
+});
+
+router.post('/remove', async (req, res) => {
+    Application.updateMany({applicantname: req.body.name, id: !req.body.id}, {status: "Removed"}, function (err, docs) { 
+        if (err){ 
+            console.log(err) 
+        } 
+        else{ 
+            console.log("Updated Docs : ", docs); 
+        }})
+});
 
 module.exports = router;

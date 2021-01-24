@@ -4,6 +4,8 @@ import ls from "local-storage";
 import axios from 'axios';
 import { Card, CardText, Badge, Button } from "reactstrap";
 
+import Welcome from './welcome';
+
 class ApplicantPublicProfile extends Component {
 
     constructor() {
@@ -29,18 +31,19 @@ class ApplicantPublicProfile extends Component {
 
     }    
 
-    onClick = e => {
-        window.location = '/applications'
-    }
+    // onClick = e => {
+    //     window.location = '/applications'
+    // }
 
     render() {
 
 		return (
 			<div>
 				<div>
+                    <Welcome/>
 					{/* <center>Hello there, Recruiter {ls.get("username")}</center> */}
 					<div class="row">  
-                    <Button color="info" onClick={(e) => this.onClick(e)}>Back</Button>
+                    {/* <Button color="info" onClick={(e) => this.onClick(e)}>Back</Button> */}
 							<div class="col-sm-12 btn btn-primary" style={{ "margin": "6px" }}>  
 								Applicant Profile
 							</div>  

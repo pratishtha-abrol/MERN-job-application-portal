@@ -5,9 +5,12 @@ import {
 	Card,
 	Button,
 	CardTitle,
-	CardSubtitle
+	CardSubtitle,
+	Badge
 } from 'reactstrap';
 import axios from 'axios';
+
+import Welcome from './welcome';
 
 class Applications extends Component {
 
@@ -33,11 +36,33 @@ class Applications extends Component {
 
     }
     
-    statusClick = (id, status) => {
+    statusClick = (id, status, name) => {
         const data = {
             id: id,
             status: status
-        }
+		}
+
+		const applicant = {
+			name: name
+		}
+
+		const application = {
+			name: name,
+			id: id
+		}
+
+		if (status === "Accepted") {
+			ls.set("applicanttobefound", name);
+			axios.post("/applicant/accept", applicant)
+				.then(res => {
+					console.log(res)
+				})
+			axios.post("/applications/remove", application)
+				.then(res => {
+					console.log(res)
+				})
+		}
+		
         axios.post("/applications/status", data)
             .then(res => {
                 console.log("Success: ", res.data);
@@ -56,6 +81,7 @@ class Applications extends Component {
 		return (
 			<div>
 				<div>
+					<Welcome />
 					{/* <center>Hello there, Recruiter {ls.get("username")}</center> */}
 					<div class="row">  
 							<div class="col-sm-12 btn btn-primary" style={{ "margin": "6px" }}>  
@@ -67,12 +93,12 @@ class Applications extends Component {
 							return <div key={index}>
 								<Card body color="light" className="text-center">
 									<CardTitle><h5>Applicant Name: {p.applicantname}</h5></CardTitle>
-									<CardSubtitle>SOP: {p.message}<br/>Application Status: {p.status}</CardSubtitle>
+									<CardSubtitle>SOP: {p.message}<br/><Badge color="secondary">Application Status: {p.status}</Badge></CardSubtitle>
 									<div>
-									<Button color="danger" onClick={(index) => this.statusClick(p._id, "Rejected")}>Reject</Button>
+									<Button color="danger" onClick={(index) => this.statusClick(p._id, "Rejected", p.applicantname)}>Reject</Button>
 									<Button color="info" onClick={(index) => this.applicantClick(p.applicantname)}>View Applicant Profile</Button>
-									<Button color="success" onClick={(index) => this.statusClick(p._id, "Accepted")}>Accept</Button>
-                                    <Button color="warning" onClick={(index) => this.statusClick(p._id, "Shortlisted")}>Shortlist</Button>
+									<Button color="success" onClick={(index) => this.statusClick(p._id, "Accepted", p.applicantname)}>Accept</Button>
+                                    <Button color="warning" onClick={(index) => this.statusClick(p._id, "Shortlisted", p.applicantname)}>Shortlist</Button>
 									</div>
 								</Card>
 							</div>
