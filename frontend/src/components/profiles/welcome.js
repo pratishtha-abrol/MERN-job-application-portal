@@ -70,7 +70,7 @@ class Welcome extends Component {
 								<Collapse isOpen={this.state.isOpen} navbar>
 									<Nav className="ml-auto" navbar>
 										<NavItem>
-											<NavLink href="/applications">My Applications</NavLink>
+											<NavLink href="/myapplications">My Applications</NavLink>
 										</NavItem>
 										<NavItem>
 											<NavLink href="/applicant">Edit Profile</NavLink>
