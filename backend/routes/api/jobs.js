@@ -44,23 +44,6 @@ router.post('/create', (req, res) => {
     newJob.save().then(job => res.json(job));
 });
 
-// // @route DELETE api/jobs; @desc Delete a jobs
-// router.delete('/:id', (req, res) => {
-//     Job.findById(req.params.id)
-//         .then(job => job.remove().then(() => res.json({ success: true })))
-//         .catch(err => res.status(404).json({ success: false }))
-// });
-
-// router.post("/:id/update", (req, res) => {
-//     Job.findById(req.params.id).then(job => {
-//         const title = req.body.title;
-//         console.log(title);
-//         User.findOneAndUpdate({ title }, (err, result) => {
-//             err ? res.status(500).json({ err }) : res.status(200).json({ result });
-//         });
-//     })
-// });
-
 router.post('/postedby', async (req,res) => {
     const details = req.body;
     // const name = details.postedby;
@@ -104,6 +87,6 @@ router.post('/edit', (req, res) => {
             }
         })
 
-})
+});
 
 module.exports = router;

@@ -128,7 +128,7 @@ router.post("/register", (req, res) => {
         if (ifExists) {
             return res.status(400).json({ email: "Email already exists" });
         } else {
-            USer.findOne({ name: userData.username }).then(ifExists => {
+            User.findOne({ name: userData.username }).then(ifExists => {
                 if (ifExists) {
                     return res.status(400).json({ email: "Name already exists" });
                 } else {

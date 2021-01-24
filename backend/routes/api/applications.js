@@ -32,4 +32,16 @@ router.post('/remove', async (req, res) => {
         }})
 });
 
+router.post('/mine', async (req, res) => {
+    const details = req.body;
+    const List = await Application.find({
+        applicantname: details.name
+    })
+        // .sort({ date: -1 })
+        // .then(applications => res.json(applications))
+        // .catch(err => res.status(400).json('Error: ' + err));
+    // console.log(List);
+    res.send(List)
+})
+
 module.exports = router;
