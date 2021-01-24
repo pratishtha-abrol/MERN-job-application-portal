@@ -16,6 +16,7 @@ import EditJobs from './components/profiles/editjob';
 import Applications from './components/profiles/applications';
 import ApplicantPublicProfile from './components/profiles/applicantpublicprofile';
 import MyApplications from './components/profiles/myapplications';
+import Landing from './components/layout/landing';
 
 function App() {
   return (
@@ -31,7 +32,10 @@ function App() {
           )}
           </div>
         ) : (
-          <Route exact path="/" component={Navbar} />
+          <div>
+            <Route exact path="/" component={Navbar} />
+            <Route exact path="/" component={Landing} />
+          </div>
         )} 
         {/* <Navbar /> */}
         <Route exact path="/register" component={Register} />

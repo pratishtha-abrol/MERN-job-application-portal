@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require("bcrypt-nodejs");
 const jwt = require("jsonwebtoken");
+const {OAuth2Client} = require('google-auth-library');
 
 require('dotenv').config();
+const client = new OAuth2Client("965374062309-4i1qperm6sand7s6pptei6fn47upb0d8.apps.googleusercontent.com");
 
 // User Models
 const User = require('../../models/user.models');
@@ -218,5 +220,21 @@ router.get("/", function(req, res) {
         });
 });
 
+router.post('/googlelogin', async (req, res) => {
+    const details = req.body;
+    const ticket = await client.verifyIdToken({idToken: details.tokenId, audience: "965374062309-4i1qperm6sand7s6pptei6fn47upb0d8.apps.googleusercontent.com"})
+        // .then(user => {
+        //     const {email_verified, name, email} = user.payload;
+        //     res.json(name, email)
+        // })
+        // .catch(err => {
+        //     console.log(err);
+        // })
+        const {name, email} = ticket.getPayload();
+        const user = {name, email}
+        res.json(user);
+        // res.send(email, name);
+        
+});
 
 module.exports = router;

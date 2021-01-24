@@ -23,16 +23,20 @@ const applicantSchema = new Schema({
     education: [
         {
             school: {
-                type: String
+                type: String,
+                required: true
             },
             degree: {
-                type: String
+                type: String,
+                required: true
             },
             fieldofstudy: {
-                type: String
+                type: String,
+                required: true
             },
             from: {
-                type: Date
+                type: Date,
+                required: true
             },
             to: {
                 type: Date
@@ -44,12 +48,13 @@ const applicantSchema = new Schema({
         default: 0
     },
     resume: {
-        type: String
+        data: Buffer,
+        contentType: String
     },
-    profile_image: {
-        type: String,
-        default: 'default-profile-image.jpg'
-    },
+    // profile_image: {
+    //     type: String,
+    //     default: 'default-profile-image.jpg'
+    // },
     status: {
         type: String,
         default: 'Available',
