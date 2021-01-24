@@ -15,6 +15,10 @@ const applicationSchema = new Schema({
     type: String,
     required: true
   },
+  applicantemail: {
+    type: String,
+    required: true
+  },
   message: {
     type: String,
     maxlength: 250

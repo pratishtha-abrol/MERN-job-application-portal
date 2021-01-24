@@ -75,9 +75,9 @@ class Welcome extends Component {
 										<NavItem>
 											<NavLink href="/applicant">Edit Profile</NavLink>
 										</NavItem>
-										{/* <NavItem>
-											<NavLink onClick={() => console.log(ls.get("username"))} >View Profile</NavLink>
-										</NavItem> */}
+										<NavItem>
+											<NavLink href="/applicant/publicprofile" onClick={ls.set("applicanttobefound", ls.get("username"))} >View Profile</NavLink>
+										</NavItem>
 										<NavItem>
 											<NavLink onClick={this.onClick}>Logout</NavLink>
 										</NavItem>

@@ -4,8 +4,12 @@ const Schema = mongoose.Schema;
 
 const recruiterSchema = new Schema({
     name: {
-        type: String
-        // required: true
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
     },
     user: {
         type: Schema.Types.ObjectId,

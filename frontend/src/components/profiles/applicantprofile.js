@@ -78,11 +78,14 @@ class ApplicantProfile extends Component {
 								return <div key={index}>
 									<Card body color="light" className="text-center">
 										<CardTitle><h5>{p.title}</h5></CardTitle>
-										<CardSubtitle>Id: {p._id} <br/>Recruiter: {p.postedby}</CardSubtitle>
+										<CardSubtitle>Id: {p._id}</CardSubtitle>
 										<div>
 											<Badge color="info">{p.rating}</Badge>
 											<Badge color="secondary">{p.type}</Badge>
 											<Badge color="success">{p.status}</Badge>
+										</div>
+										<div>
+										<CardSubtitle>Recruiter: {p.postedby} <br/>Email: {p.recruiteremail} <br/> Date of Posting: {p.date}</CardSubtitle>
 										</div>
 										<div>
 										<CardText>Skills: {p.requiredSkills.map(skill => {return (<Badge color="info">{skill}</Badge>)})} <br/>Salary: {p.salary}<br/>Duration: {p.duration}</CardText>

@@ -37,7 +37,8 @@ router.post('/create', (req, res) => {
         duration: req.body.duration,
         type: req.body.type,
         salary: req.body.salary,
-        postedby: req.body.postedby
+        postedby: req.body.postedby,
+        recruiteremail: req.body.recruiteremail
         }
     );
 

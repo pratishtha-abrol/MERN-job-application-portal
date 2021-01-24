@@ -106,7 +106,8 @@ class CreateJobs extends Component {
             type: this.state.type,
             duration: this.state.duration,
             salary: this.state.salary,
-            postedby: ls.get("username")
+            postedby: ls.get("username"),
+            recruiteremail: ls.get("useremail")
         };
         console.log(`Title: ${ this.state.title }`);
         axios

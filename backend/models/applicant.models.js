@@ -8,8 +8,12 @@ const statuses = [
 
 const applicantSchema = new Schema({
     name: {
-        type: String
-        // required: true
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
     },
     user: {
         type: Schema.Types.ObjectId,
@@ -59,6 +63,11 @@ const applicantSchema = new Schema({
         type: String,
         default: 'Available',
         enum: statuses
+    },
+    applicationsyet: {
+        type: Number,
+        max: 10,
+        default: 0
     }
 });
 

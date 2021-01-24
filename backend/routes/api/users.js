@@ -156,6 +156,7 @@ router.post("/register", (req, res) => {
                     if(newUser.role === 'Applicant') {
                         const newApplicant = new Applicant({
                             name: newUser.name,
+                            email: newUser.email,
                             user: savedUser._id
                         });
                         newApplicant.save()
@@ -166,6 +167,7 @@ router.post("/register", (req, res) => {
                     } else {
                         const newRecruiter = new Recruiter({
                             name: newUser.name,
+                            email: newUser.email,
                             user: savedUser._id
                         });
                         newRecruiter.save()
@@ -203,11 +205,11 @@ router.post("/register", (req, res) => {
 });
 
 // delete a user
-router.delete('/:id', (req, res) => {
-    User.findById(req.params.id)
-        .then(user => user.remove().then(() => res.json({ success: true })))
-        .catch(err => res.status(404).json({ success: false }))
-});
+// router.delete('/:id', (req, res) => {
+//     User.findById(req.params.id)
+//         .then(user => user.remove().then(() => res.json({ success: true })))
+//         .catch(err => res.status(404).json({ success: false }))
+// });
 
 // get all users
 router.get("/", function(req, res) {

@@ -62,6 +62,10 @@ const jobSchema = new Schema({
     postedby: {
         type: String,
         required: true
+    },
+    recruiteremail: {
+        type: String,
+        required: true
     }
 }, {
     timestamps: true,
