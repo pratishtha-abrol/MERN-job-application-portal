@@ -8,6 +8,7 @@ const jobs = require('./routes/api/jobs');
 const users = require('./routes/api/users');
 const applicant = require('./routes/api/applicants');
 const recruiter = require('./routes/api/recruiters');
+const applications = require('./routes/api/applications');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -29,6 +30,7 @@ app.use('/jobs', jobs);
 app.use('/', users);
 app.use('/applicant', applicant);
 app.use('/recruiter', recruiter);
+app.use('/applications', applications);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

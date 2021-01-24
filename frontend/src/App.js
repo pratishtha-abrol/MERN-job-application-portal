@@ -12,6 +12,9 @@ import Welcome from './components/profiles/welcome';
 import CreateJobs from './components/profiles/createjob';
 import ApplicantProfile from './components/profiles/applicantprofile';
 import RecruiterProfile from './components/profiles/recruiterprofile';
+import EditJobs from './components/profiles/editjob';
+import Applications from './components/profiles/applications';
+import ApplicantPublicProfile from './components/profiles/applicantpublicprofile';
 
 function App() {
   return (
@@ -20,7 +23,7 @@ function App() {
         {ls.get("auth") === "true" ? (
           <div>
           <Route exact path="/" component={Welcome} />
-          {ls.get("usersrole") === "Applicant" ? (
+          {ls.get("userrole") === "Applicant" ? (
             <Route exact path="/" component={ApplicantProfile} />
           ) : (
             <Route exact path="/" component={RecruiterProfile} />
@@ -35,6 +38,9 @@ function App() {
         <Route exact path="/recruiter" component={RecruiterDetails} />
         <Route exact path="/applicant" component={ApplicantDetails} />
         <Route exact path="/jobs/create" component={CreateJobs} />
+        <Route exact path="/jobs/edit" component={EditJobs} />
+        <Route exact path="/applications" component={Applications} />
+        <Route exact path="/applicant/publicprofile" component={ApplicantPublicProfile} />
       </div>
     </Router>
   );

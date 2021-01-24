@@ -6,6 +6,7 @@ const ValidateCreateJobs = require('../../validation/createjobs');
 // Job Model
 const Job = require('../../models/job.models');
 const Recruiter = require('../../models/recruiter.models');
+const Application = require('../../models/application.models');
 
 
 // @route GET api/jobs; @desc Get all jobs
@@ -60,6 +61,22 @@ router.post('/create', (req, res) => {
 //     })
 // });
 
+router.post('/postedby', async (req,res) => {
+    const details = req.body;
+    // const name = details.postedby;
+    // console.log(details.postedby);
+    const list = await Job.find({
+        // 'postedby' : {
+        //     $elemMatch: {
+        //         postedby: details.postedby
+        //     }
+        // }
+        postedby: details.postedby
+    });
+    res.send(list)
+    // Job.find({postedby: name})
+});
+
 router.post('/apply', (req, res) => {
     const details = req.body;
     console.log(details);
@@ -76,5 +93,17 @@ router.post('/apply', (req, res) => {
         });
 });
 
+router.post('/edit', (req, res) => {
+    const details = req.body;
+    Job.findByIdAndUpdate({ _id: details.id }, {title: details.title, maxApplicants: details.maxApplicants, deadline: details.deadline, numberOfPositions: details.numberOfPositions, requiredSkills: details.requiredSkills, type: details.type, duration: details.duration, salary: details.salary})
+        .then(doc => {
+            if(doc) {
+                res.send()
+            } else {
+                return res.status(400).json({ name: "Could not update job" });
+            }
+        })
+
+})
 
 module.exports = router;

@@ -61,4 +61,10 @@ router.post(("/"), (req, res) => {
 //         .catch(err => res.status(400).json('Error: ' + err));
 // });
 
+router.post(('/find'), async (req, res) => {
+    const data = await Applicant.find({name: req.body.name})
+    
+    res.send(data);
+});
+
 module.exports = router;

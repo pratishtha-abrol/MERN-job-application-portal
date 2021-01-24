@@ -15,10 +15,6 @@ const applicationSchema = new Schema({
     type: String,
     required: true
   },
-  resume: {
-    type: String
-    // required: true
-  },
   message: {
     type: String,
     maxlength: 250
