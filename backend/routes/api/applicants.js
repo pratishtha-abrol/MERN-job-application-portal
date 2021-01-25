@@ -6,6 +6,10 @@ const Applicant = require('../../models/applicant.models');
 const ValidateApplicantInput = require('../../validation/applicant');
 const Application = require('../../models/application.models');
 
+const multer = require('multer');
+const { v4: uuidv4 } = require('uuid');
+let path = require('path');
+
 // add all info
 router.post(("/"), (req, res) => {
 
@@ -19,7 +23,7 @@ router.post(("/"), (req, res) => {
         return res.status(400).json(errors);
     }
     
-    Applicant.findOneAndUpdate( { name: req.body.name } , { skills: req.body.skills, education: req.body.education, profile_image: req.body.profile_image, resume: req.body.resume })
+    Applicant.findOneAndUpdate( { name: req.body.name } , { skills: req.body.skills, education: req.body.education})
     .then(updatedDoc => {
         if(updatedDoc) {
             res.send()
@@ -74,5 +78,35 @@ router.post(('/accept'), (req, res) => {
         // .then(doc => {
         // })
 })
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, '../frontend/public/resume');
+    },
+    filename: function(req, file, cb) {   
+        cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+
+const fileFilter = (req, file, cb) => {
+    cb(null, true);
+}
+
+let upload = multer({ storage, fileFilter });
+
+router.route('/uploadResume').post(upload.single('resume'), (req, res) => {
+    console.log("FILE", req.file);
+    Applicant.updateOne({name: req.body.name}, {$set: {resume: req.file.filename}})
+           .then(() => res.json('Resume Uploaded'))
+           .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route('/uploadProfilePic').post(upload.single('profilepicture'), (req, res) => {
+    console.log("FILE", req.file);
+    Applicant.updateOne({name: req.body.name}, {$set: {profilepicture: req.file.filename}})
+           .then(() => res.json('Profile Picture Uploaded'))
+           .catch(err => res.status(400).json('Error: ' + err));
+});
+
 
 module.exports = router;

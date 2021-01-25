@@ -56,16 +56,8 @@ const jobSchema = new Schema({
     },
     status: {
         type: String,
-        default: function() {
-            if (this.maxApplicants === this.numberofapplications) {
-                return "Full Capacity"
-            } else if (Date.now() > this.deadline) {
-                return "Expired"
-            } else {
-                return "Active"
-            }
-        }
-        // enum: statuses
+        default: "Active",
+        enum: statuses
     },
     postedby: {
         type: String,

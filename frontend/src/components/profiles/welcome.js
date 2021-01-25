@@ -104,9 +104,9 @@ class Welcome extends Component {
 										<NavItem>
 											<NavLink href="/recruiter">Edit Profile</NavLink>
 										</NavItem>
-										<NavItem>
+										{/* <NavItem>
 											<NavLink href="/acceptedapplications">Accepted Applications</NavLink>
-										</NavItem>
+										</NavItem> */}
 										{/* <NavItem>
 											<NavLink onClick={() => console.log(ls.get("username"))} >View Profile</NavLink>
 										</NavItem> */}

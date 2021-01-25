@@ -25,7 +25,11 @@ class ApplicantProfile extends Component {
 	}
 
 	componentDidMount() {
-		axios.get('/jobs')
+		const data = {
+			name: ls.get("username"),
+			email: ls.get("useremail")
+		}
+		axios.post('/jobs', data)
 			.then(res => {
 				console.log(res.data);
 				this.setState ({
@@ -52,6 +56,7 @@ class ApplicantProfile extends Component {
 			const msg = window.prompt("Enter SOP here");
 			const app = {
 				jobId: id,
+				// applicantId: ls.get("userid"),
 				applicantname: ls.get("username"),
 				applicantemail: ls.get("useremail"),
 				message: msg
@@ -94,20 +99,20 @@ class ApplicantProfile extends Component {
 							this.state.JobList.map((p, index) => {
 								return <div key={index}>
 									<Card body color="light" className="text-center">
-										<CardTitle><h5>{p.title}</h5></CardTitle>
-										<CardSubtitle>Id: {p._id}</CardSubtitle>
+										<CardTitle><h5>{p.Job.title}</h5></CardTitle>
+										<CardSubtitle>Id: {p.Job._id}</CardSubtitle>
 										<div>
-											<Badge color="info">{p.rating}</Badge>
-											<Badge color="secondary">{p.type}</Badge>
-											<Badge color="success">{p.status}</Badge>
+											<Badge color="info">{p.Job.rating}</Badge>
+											<Badge color="secondary">{p.Job.type}</Badge>
+											<Badge color="success">{p.Job.status}</Badge>
 										</div>
 										<div>
-										<CardSubtitle>Recruiter: {p.postedby} <br/>Email: {p.recruiteremail} <br/> Date of Posting: {p.date}</CardSubtitle>
+										<CardSubtitle>Recruiter: {p.Job.postedby} <br/>Email: {p.Job.recruiteremail} <br/> Date of Posting: {p.Job.date}</CardSubtitle>
 										</div>
 										<div>
-										<CardText>Skills: {p.requiredSkills.map(skill => {return (<Badge color="info">{skill}</Badge>)})} <br/>Salary: {p.salary}<br/>Duration: {p.duration}</CardText>
+										<CardText>Skills: {p.Job.requiredSkills.map(skill => {return (<Badge color="info">{skill}</Badge>)})} <br/>Salary: {p.Job.salary}<br/>Duration: {p.Job.duration}</CardText>
 										</div>
-										<Button color={this.state.color} id="submit" onClick={(index) => this.handleClick(p._id)}>{this.state.value}</Button>
+										<Button color={p.hasapplied==="true" ? "success" : "danger"} id="submit" onClick={(index) => this.handleClick(p.Job._id)}>{p.hasapplied==="true" ? "Applied!" : "Apply"}</Button>
 									</Card>
 								</div>
 							})

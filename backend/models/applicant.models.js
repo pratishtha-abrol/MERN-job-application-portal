@@ -52,13 +52,13 @@ const applicantSchema = new Schema({
         default: 0
     },
     resume: {
-        data: Buffer,
-        contentType: String
+        type: String,
+        required: true
     },
-    // profile_image: {
-    //     type: String,
-    //     default: 'default-profile-image.jpg'
-    // },
+    profilepicture: {
+        type: String,
+        required: true
+    },
     status: {
         type: String,
         default: 'Available',

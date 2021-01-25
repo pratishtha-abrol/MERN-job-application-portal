@@ -52,10 +52,23 @@ router.post('/mine', async (req, res) => {
 
 router.post("/deleted", async (req, res) => {
     const details = req.body;
-    await Application.findOneAndDelete({ jobId: details.id }).exec()
+    await Application.findOneAndUpdate({ jobId: details.id }, {status: "Deleted"})
         .then(res => {
             console.log(res);
         })
+});
+
+router.post("/accepted", async (req, res) => {
+    const data = req.body;
+    const list = await Application.find({jobId: data.jobId})
+    const array =[]
+    for (let i=0; i<list.length; i++) {
+        if(list[i].status === "Accepted") {
+            array.push(list[i])
+        }
+    }
+    
+    res.send(array);
 })
 
 module.exports = router;

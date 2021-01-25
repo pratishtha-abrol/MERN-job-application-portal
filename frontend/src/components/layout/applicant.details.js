@@ -44,8 +44,8 @@ class ApplicantDetails extends Component {
                 from: "",
                 to: ""
             }],
-            // profile_image: "",
-            // resume: ""
+            profilepicture: "",
+            resume: ""
         };
     }
 
@@ -70,10 +70,10 @@ class ApplicantDetails extends Component {
             name: this.state.name,
             skills: this.state.skills,
             education: this.state.education
-            // profile_image: this.state.profile_image,
+            // profilepicture: this.state.profilepicture,
             // resume: this.state.resume
         }
-        // data.append('pp', this.state.profile_image);
+        // data.append('pp', this.state.profilepicture);
         // data.append('r', this.state.resume);
         // console.log(data);
         axios
@@ -171,13 +171,40 @@ class ApplicantDetails extends Component {
 
     // ProfileChangehandler (e) {
     //     e.preventDefault();
-    //     this.setState({ profile_image: e.target.files[0], loaded1:0,});
+    //     this.setState({ profilepicture: e.target.files[0], loaded1:0,});
     // }
 
-    // ResumeChangehandler (e) {
-    //     e.preventDefault();
-    //     this.setState({ resume: e.target.files[0], loaded1:0,});
-    // }
+    uploadres = (e) => {
+        this.setState({ resume: e.target.files[0]});
+    }
+
+    ResumeChangehandler (e) {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('name', ls.get("username"));
+        formData.append('resume', this.state.resume);
+
+        axios
+        .post('/applicant/uploadResume', formData)
+
+        alert("Resume Uploaded")
+    }
+
+    uploadpro = (e) => {
+        this.setState({ profilepicture: e.target.files[0]});
+    }
+
+    ProfileChangehandler (e) {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('name', ls.get("username"));
+        formData.append('profilepicture', this.state.profilepicture);
+
+        axios
+        .post('/applicant/uploadProfilePic', formData)
+
+        alert("Profile Picture Uploaded");
+    }
 
     // render
 
@@ -236,16 +263,16 @@ class ApplicantDetails extends Component {
                                 <FormGroup>
                                 <Button value="Add" onClick={ () => this.addClick() } >Add</Button>
                                 </FormGroup>
-                                {/* <FormGroup>
+                                <FormGroup>
                                     <Label for="profilepic">Profile Picture</Label>
-                                    <Input type="file" name="pp" id="pp" value={ profile_image } onChange={ (e) => {this.ProfileChangehandler(e)} } />
-                                    <Button onClick={ this.upload }>Upload</Button>
+                                    <Input type="file" name="pp" id="pp" onChange={ this.uploadpro } />
+                                    <Button onClick={ (e) => {this.ProfileChangehandler(e)} }>Upload</Button>
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="resume">Resume</Label>
-                                    <Input type="file" name="r" id="r" value={ resume } onChange={ (e) => {this.ResumeChangehandler(e)} } />
-                                    <Button onClick={ this.upload }>Upload</Button>
-                                </FormGroup> */}
+                                    <Input type="file" name="r" id="r" onChange={ this.uploadres } />
+                                    <Button onClick={ (e) => {this.ResumeChangehandler(e) }}>Upload</Button>
+                                </FormGroup>
                                 <center><Button type="submit">Submit</Button></center>
                             </Form>
                         </Card>

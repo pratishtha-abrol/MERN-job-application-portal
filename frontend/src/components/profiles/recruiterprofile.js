@@ -64,6 +64,11 @@ class RecruiterProfile extends Component {
 			window.location.reload();
 	}
 
+	acceptedapplicantClick = (id) => {
+		ls.set("jobId", id);
+		window.location='/acceptedapplications'
+	}
+
 	render() {
 
 		return (
@@ -95,6 +100,7 @@ class RecruiterProfile extends Component {
 									<Button color="success" onClick={(index) => this.applicantClick(p._id)}>View Applications</Button>
 									<Button color="danger" onClick={(index) => this.deleteClick(p._id)}>Delete</Button>
 									</div>
+									<Button color="danger" onClick={(index) => this.acceptedapplicantClick(p._id)}>View Accepted Applicants</Button>
 								</Card>
 							</div>
 						})

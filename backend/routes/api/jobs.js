@@ -11,12 +11,22 @@ const Applcant = require("../../models/applicant.models");
 
 
 // @route GET api/jobs; @desc Get all jobs
-router.get('/', async (req, res) => {
+router.post('/', async (req, res) => {
     const list = await Job.find()
     const array = [];
+    console.log(req.body);
     for(let i=0; i<list.length; i++) {
         if (list[i].status === "Active") {
-            array.push(list[i]);
+            const temp_arr = {};
+            temp_arr["Job"] = list[i];
+            const app = await Application.findOne({jobId: list[i]._id, applicantname: req.body.name, applicantemail: req.body.email})
+            console.log(app)
+            if(app) {
+                temp_arr["hasapplied"] = "true"
+            } else {
+                temp_arr["hasapplied"] = "false"
+            }
+            array.push(temp_arr);
         }
     }
     // array
@@ -71,12 +81,14 @@ router.post('/postedby', async (req,res) => {
     // Job.find({postedby: name})
 });
 
-router.post('/apply', (req, res) => {
+router.post('/apply', async (req, res) => {
     const details = req.body;
     console.log(details);
     // const id = details.jobId;
     // const message = details.message;
-    Applcant.findOneAndUpdate({ name: details.applicantname }, { $inc : {numberofapplications: 1} })
+    const job = await Job.findOne({_id: details.jobId})
+    console.log(job);
+    await Job.updateOne({ _id: details.jobId }, { $inc : {numberofapplications: 1} })
         // .then(doc => {
             // if (doc.numberofapplications > 10) {
             //     return res.status(400).json({ name: "You have exceeded your Application Limit" });

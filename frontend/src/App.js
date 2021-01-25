@@ -49,8 +49,8 @@ function App() {
         <Route exact path="/applications" component={Applications} />
         <Route exact path="/applicant/publicprofile" component={ApplicantPublicProfile} />
         <Route exact path="/myapplications" component={MyApplications} />
-        {/* <Route exact path="/acceptedjobs" component={AcceptedJobs} />
-        <Route exact path="/acceptedapplications" component={AcceptedApplications} /> */}
+        {/* <Route exact path="/acceptedjobs" component={AcceptedJobs} /> */}
+        {/* <Route exact path="/acceptedapplications" component={AcceptedApplications} /> */}
       </div>
     </Router>
   );
