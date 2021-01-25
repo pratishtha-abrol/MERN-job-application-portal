@@ -7,14 +7,24 @@ const ValidateCreateJobs = require('../../validation/createjobs');
 const Job = require('../../models/job.models');
 const Recruiter = require('../../models/recruiter.models');
 const Application = require('../../models/application.models');
+const Applcant = require("../../models/applicant.models");
 
 
 // @route GET api/jobs; @desc Get all jobs
-router.get('/', (req, res) => {
-    Job.find()
-        .sort({ date: -1 })
-        .then(jobs => res.json(jobs))
-        .catch(err => res.status(400).json('Error: ' + err));
+router.get('/', async (req, res) => {
+    const list = await Job.find()
+    const array = [];
+    for(let i=0; i<list.length; i++) {
+        if (list[i].status === "Active") {
+            array.push(list[i]);
+        }
+    }
+    // array
+    //     .sort({ date: -1 })
+    //     .then(jobs => res.json(jobs))
+    //     .catch(err => res.status(400).json('Error: ' + err));
+
+        res.send(array)
 });
 
 // @route POST api/jobs; @desc Create a job
@@ -66,15 +76,34 @@ router.post('/apply', (req, res) => {
     console.log(details);
     // const id = details.jobId;
     // const message = details.message;
-    const newApplication = new Application (details)
-    newApplication.status = 'Applied';
-    newApplication.save()
-        .then(application => {
-            res.status(200).json(application);
-        })
-        .catch(err => {
-            res.status(400).send(err);
-        });
+    Applcant.findOneAndUpdate({ name: details.applicantname }, { $inc : {numberofapplications: 1} })
+        // .then(doc => {
+            // if (doc.numberofapplications > 10) {
+            //     return res.status(400).json({ name: "You have exceeded your Application Limit" });
+            // }
+            // else {
+                // Job.findOneAndUpdate({ _id: details.id }, { $inc : {numberofapplications: 1} })
+                //     .then(updatedjob => {
+                //         if (updatedjob.numberofapplications > updatedjob.maxApplicants) {
+                //             return res.status(400).json({ name: "Job has exceeded its max applications" });
+                //         } 
+                        // else {
+                            const newApplication = new Application (details)
+                            newApplication.status = 'Applied';
+                            newApplication.save()
+                                .then(application => {
+                                    res.status(200).json(application);
+                                })
+                                // .catch(err => {
+                                //     res.status(400).send(err);
+                                // });
+
+                        // }
+                    // })
+            // }
+        // }) 
+    
+    // Job.findOneAndUpdate({ _id: details.id }, { $inc : {numberofapplications: 1} });
 });
 
 router.post('/edit', (req, res) => {

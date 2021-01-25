@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const statuses = [
-    'Active', 'Expired', 'Alotted', 'Deleted'
+    'Active', 'Expired', 'Full'
 ]
 
 const jobtype = [
@@ -20,7 +20,7 @@ const jobSchema = new Schema({
     },
     date: {
         type: Date,
-        default: Date.now
+        default: Date()
     },
     maxApplicants: {
         type: Number,
@@ -56,8 +56,16 @@ const jobSchema = new Schema({
     },
     status: {
         type: String,
-        default: "Active",
-        enum: statuses
+        default: function() {
+            if (this.maxApplicants === this.numberofapplications) {
+                return "Full Capacity"
+            } else if (Date.now() > this.deadline) {
+                return "Expired"
+            } else {
+                return "Active"
+            }
+        }
+        // enum: statuses
     },
     postedby: {
         type: String,
@@ -66,6 +74,10 @@ const jobSchema = new Schema({
     recruiteremail: {
         type: String,
         required: true
+    },
+    numberofapplications: {
+        type: Number,
+        default: 0
     }
 }, {
     timestamps: true,

@@ -73,6 +73,9 @@ class Welcome extends Component {
 											<NavLink href="/myapplications">My Applications</NavLink>
 										</NavItem>
 										<NavItem>
+											<NavLink href="/acceptedjobs">My Jobs</NavLink>
+										</NavItem>
+										<NavItem>
 											<NavLink href="/applicant">Edit Profile</NavLink>
 										</NavItem>
 										<NavItem>

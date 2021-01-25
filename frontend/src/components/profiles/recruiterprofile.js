@@ -88,6 +88,7 @@ class RecruiterProfile extends Component {
 									</div>
 									<div>
 									<CardText>Skills: {p.requiredSkills.map(skill => {return (<Badge color="info">{skill}</Badge>)})} <br/>Salary: {p.salary}<br/>Duration: {p.duration}</CardText>
+									<CardText>Deadline: {p.deadline} <br/>Number of Psotions: {p.numberOfPositions} <br/>Max Applicants: {p.maxApplicants}</CardText>
 									</div>
 									<div>
 									<Button color="danger" onClick={(index) => this.editClick(p._id)}>Edit</Button>

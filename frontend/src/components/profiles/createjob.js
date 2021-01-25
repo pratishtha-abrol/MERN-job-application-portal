@@ -140,11 +140,11 @@ class CreateJobs extends Component {
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="maxApplicants">Maximum Applicants</Label>
-                                            <Input type="number" name="maxApplicants" id="maxApplicants" placeholder="maxApplicants" value={ maxApplicants } onChange={ (e) => {this.handleChange(e)} } />
+                                            <Input type="number" min="1" name="maxApplicants" id="maxApplicants" placeholder="maxApplicants" value={ maxApplicants } onChange={ (e) => {this.handleChange(e)} } />
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="numberOfPositions">Number of Positions Open</Label>
-                                            <Input type="number" name="numberOfPositions" id="numberOfPositions" placeholder="numberOfPositions" value={ numberOfPositions } onChange={ (e) => {this.handleChange(e)} } />
+                                            <Input type="number" min="1" name="numberOfPositions" id="numberOfPositions" placeholder="numberOfPositions" value={ numberOfPositions } onChange={ (e) => {this.handleChange(e)} } />
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="deadline">Deadline</Label>
@@ -152,18 +152,18 @@ class CreateJobs extends Component {
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="salary">Salary</Label>
-                                            <Input type="text" name="salary" id="salary" placeholder="salary" value={ salary } onChange={ (e) => {this.handleChange(e)} } />
+                                            <Input type="number" min="0" name="salary" id="salary" placeholder="salary" value={ salary } onChange={ (e) => {this.handleChange(e)} } />
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="duration">Duration</Label>
-                                            <Input type="text" name="duration" id="duration" placeholder="duration" value={ duration } onChange={ (e) => {this.handleChange(e)} } />
+                                            <Input type="number" min="0" max="6" name="duration" id="duration" placeholder="duration" value={ duration } onChange={ (e) => {this.handleChange(e)} } />
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="select">Type</Label>
                                             <Input type="select" name="type" id="type" value={ type }  onChange={ (e) => {this.handleChange(e)} }>
                                                 <option value="Full Time">Full Time</option>
                                                 <option value="Part Time">Part Time</option>
-                                                <option value="Internship">Internship</option>
+                                                <option value="Internship">Internship/WFH</option>
                                             </Input>
                                     </FormGroup>
                                     <FormGroup>

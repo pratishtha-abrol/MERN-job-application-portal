@@ -63,11 +63,6 @@ const applicantSchema = new Schema({
         type: String,
         default: 'Available',
         enum: statuses
-    },
-    applicationsyet: {
-        type: Number,
-        max: 10,
-        default: 0
     }
 });
 

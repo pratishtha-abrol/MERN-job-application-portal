@@ -11,11 +11,15 @@ import {
 } from 'reactstrap';
 import axios from 'axios';
 
+let num = 0;
+
 class ApplicantProfile extends Component {
 	constructor() {
 		super();
 		this.state = {
-			JobList: []
+			JobList: [],
+			value: "Apply",
+			color: "danger"
 		};
 		// this.handleChange = this.handleClick.bind(this);
 	}
@@ -25,7 +29,7 @@ class ApplicantProfile extends Component {
 			.then(res => {
 				console.log(res.data);
 				this.setState ({
-					JobList: res.data,
+					JobList: res.data				
 				});
 			});
 
@@ -38,24 +42,36 @@ class ApplicantProfile extends Component {
 		// 		<center><Input type="text" onChange={this.onChange} placeholder="Add a SOP here" /></center>
 		// 	</div>
 		// )
-		const msg = window.prompt("Enter SOP here");
-		const app = {
-			jobId: id,
-			applicantname: ls.get("username"),
-			applicantemail: ls.get("useremail"),
-			message: msg
+		num = num + 1;
+		if (num > 10) {
+			alert("Exceeded application limit for login session");
+			window.location.reload();
 		}
+		else {
 
-		axios.post("/jobs/apply", app)
-			.then( res => {
-				alert("Applied!");
-				window.location.reload();
-			})
-			.catch(res => {
-				alert(JSON.stringify(res.response.data[Object.keys(res.response.data)[0]]));
+			const msg = window.prompt("Enter SOP here");
+			const app = {
+				jobId: id,
+				applicantname: ls.get("username"),
+				applicantemail: ls.get("useremail"),
+				message: msg
+			}
+
+			axios.post("/jobs/apply", app)
+				.then( res => {
+					alert("Applied!");
+					window.location.reload();
+				})
+				.catch(res => {
+					alert(JSON.stringify(res.response.data[Object.keys(res.response.data)[0]]));
+				})
+
+			this.setState({
+				value: "Applied!",
+				color: "success",
 			})
 
-		document.getElementById("submit").color = "info";
+		}
 
 	}
 	
@@ -91,7 +107,7 @@ class ApplicantProfile extends Component {
 										<div>
 										<CardText>Skills: {p.requiredSkills.map(skill => {return (<Badge color="info">{skill}</Badge>)})} <br/>Salary: {p.salary}<br/>Duration: {p.duration}</CardText>
 										</div>
-										<Button color="success" id="submit" onClick={(index) => this.handleClick(p._id)}>Apply</Button>
+										<Button color={this.state.color} id="submit" onClick={(index) => this.handleClick(p._id)}>{this.state.value}</Button>
 									</Card>
 								</div>
 							})
