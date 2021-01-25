@@ -31,9 +31,19 @@ class ApplicantPublicProfile extends Component {
 
     }    
 
-    // onClick = e => {
-    //     window.location = '/applications'
-    // }
+    download = resume => {
+        const link = "../../../public/resume/"+resume;
+        fetch(link)
+        .then(response => {
+            response.blob().then(blob => {
+                let url = window.URL.createObjectURL(blob);
+                let a = document.createElement('a');
+                a.href = url;
+                a.download = url;
+                a.click();
+            });
+        })
+    }
 
     render() {
 
@@ -74,7 +84,7 @@ class ApplicantPublicProfile extends Component {
                                         })
                                     }
                                 </Card>
-                                <Button>Download Resume</Button>
+                                <Button onClick={this.download(p.resume)}>Download Resume</Button>
                                 </center>
                             </div>
                         })
