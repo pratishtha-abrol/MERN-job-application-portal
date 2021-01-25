@@ -90,4 +90,12 @@ router.post('/edit', (req, res) => {
 
 });
 
+router.post('/delete', (req, res) => {
+    const data = req.body;
+    Job.findByIdAndRemove({ _id: data.id }).exec()
+        .then(res => {
+            console.log(res);
+        })
+})
+
 module.exports = router;

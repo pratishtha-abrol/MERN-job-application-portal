@@ -8,10 +8,16 @@ router.post('/', async (req, res) => {
     const List = await Application.find({
         jobId: details.jobId
     })
+    const array = []
+    for(let i=0; i<List.length; i++) {
+        if(List[i].status != "Rejected") {
+            array.push(List[i])
+        }
+    }
         // .sort({ date: -1 })
         // .then(applications => res.json(applications))
         // .catch(err => res.status(400).json('Error: ' + err));
-    res.send(List)
+    res.send(array)
 });
 
 router.post('/status', (req, res) => {
@@ -42,6 +48,14 @@ router.post('/mine', async (req, res) => {
         // .catch(err => res.status(400).json('Error: ' + err));
     // console.log(List);
     res.send(List)
+});
+
+router.post("/deleted", async (req, res) => {
+    const details = req.body;
+    await Application.findOneAndDelete({ jobId: details.id }).exec()
+        .then(res => {
+            console.log(res);
+        })
 })
 
 module.exports = router;

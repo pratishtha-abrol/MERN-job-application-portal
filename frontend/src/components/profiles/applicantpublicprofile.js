@@ -51,7 +51,9 @@ class ApplicantPublicProfile extends Component {
 					{
                         this.state.Applicant.map((p, index) => {
                             return <div key={index}>
-                                <center><h2>{p.name}</h2></center>
+                                <center><h2>{p.name}</h2>
+                                <Badge color="info">Status: {p.status}</Badge>
+                                </center>
                                 <center>
                                 <Badge color="info">Rating: {p.rating}</Badge>
                                 <Card body className="text-center">

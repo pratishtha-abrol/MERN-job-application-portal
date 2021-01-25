@@ -68,7 +68,11 @@ router.post(('/find'), async (req, res) => {
 });
 
 router.post(('/accept'), (req, res) => {
-    Applicant.findOneAndUpdate({name: req.body.name}, {status: 'Working'})
+    const details = req.body;
+    const status = "Working";
+    Applicant.findOneAndUpdate({name: details.name}, {status: status})
+        // .then(doc => {
+        // })
 })
 
 module.exports = router;

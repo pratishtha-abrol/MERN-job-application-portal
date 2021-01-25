@@ -44,6 +44,26 @@ class RecruiterProfile extends Component {
 		window.location='/applications'
 	}
 
+	deleteClick = (id) => {
+		const data = {
+			id: id
+		}
+
+		axios.post("/jobs/delete", data)
+			// .then(() => {
+			// 	alert("Job Deleted");
+			// 	window.location.reload();
+			// })
+
+		axios.post("applications/deleted", data)
+			.then(() => {
+				window.location.reload();
+			})
+
+			alert("Job Deleted");
+			window.location.reload();
+	}
+
 	render() {
 
 		return (

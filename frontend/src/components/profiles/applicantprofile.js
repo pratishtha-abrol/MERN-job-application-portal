@@ -42,6 +42,7 @@ class ApplicantProfile extends Component {
 		const app = {
 			jobId: id,
 			applicantname: ls.get("username"),
+			applicantemail: ls.get("useremail"),
 			message: msg
 		}
 
