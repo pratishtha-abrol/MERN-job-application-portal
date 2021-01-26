@@ -42,7 +42,15 @@ class ApplicantPublicProfile extends Component {
                 a.download = url;
                 a.click();
             });
+            console.log(response)
         })
+
+        // var data = new Blob(link);
+        // var url = window.URL.createObjectURL(data);
+        // let temp = document.createElement('a');
+        // temp.href = url;
+        // temp.setAttribute('download', resume);
+        // temp.click()
     }
 
     render() {
