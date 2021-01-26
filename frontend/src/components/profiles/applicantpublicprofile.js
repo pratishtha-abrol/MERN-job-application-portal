@@ -31,27 +31,27 @@ class ApplicantPublicProfile extends Component {
 
     }    
 
-    download = resume => {
-        const link = "../../../public/resume/"+resume;
-        fetch(link)
-        .then(response => {
-            response.blob().then(blob => {
-                let url = window.URL.createObjectURL(blob);
-                let a = document.createElement('a');
-                a.href = url;
-                a.download = url;
-                a.click();
-            });
-            console.log(response)
-        })
+    // download = resume => {
+    //     const link = "../../../public/resume/"+resume;
+    //     fetch(link)
+    //     .then(response => {
+    //         response.blob().then(blob => {
+    //             let url = window.URL.createObjectURL(blob);
+    //             let a = document.createElement('a');
+    //             a.href = url;
+    //             a.download = url;
+    //             a.click();
+    //         });
+    //         console.log(response)
+    //     })
 
-        // var data = new Blob(link);
-        // var url = window.URL.createObjectURL(data);
-        // let temp = document.createElement('a');
-        // temp.href = url;
-        // temp.setAttribute('download', resume);
-        // temp.click()
-    }
+    //     // var data = new Blob(link);
+    //     // var url = window.URL.createObjectURL(data);
+    //     // let temp = document.createElement('a');
+    //     // temp.href = url;
+    //     // temp.setAttribute('download', resume);
+    //     // temp.click()
+    // }
 
     render() {
 
@@ -92,7 +92,8 @@ class ApplicantPublicProfile extends Component {
                                         })
                                     }
                                 </Card>
-                                <Button onClick={this.download.bind(p.resume)}>Download Resume</Button>
+                                {/* <Button onClick={this.download.bind(p.resume)}>Download Resume</Button> */}
+                                <a href={"../resume/" + p.resume}>Download Resume</a>
                                 </center>
                             </div>
                         })
