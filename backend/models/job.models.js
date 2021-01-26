@@ -34,6 +34,10 @@ const jobSchema = new Schema({
         type: Number,
         required: true
     },
+    numberaccepted: {
+        type: Number,
+        default: 0
+    },
     rating: {
         type: Number,
         default: 0

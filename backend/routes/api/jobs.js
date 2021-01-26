@@ -89,11 +89,11 @@ router.post('/apply', async (req, res) => {
     const job = await Job.findOne({_id: details.jobId})
     console.log(job);
     await Job.updateOne({ _id: details.jobId }, { $inc : {numberofapplications: 1} })
-        // .then(doc => {
-            // if (doc.numberofapplications > 10) {
-            //     return res.status(400).json({ name: "You have exceeded your Application Limit" });
-            // }
-            // else {
+        .then(doc => {
+            if (doc.numberofapplications > 10) {
+                return res.status(400).json({ name: "You have exceeded your Application Limit" });
+            }
+            else {
                 // Job.findOneAndUpdate({ _id: details.id }, { $inc : {numberofapplications: 1} })
                 //     .then(updatedjob => {
                 //         if (updatedjob.numberofapplications > updatedjob.maxApplicants) {
@@ -112,8 +112,8 @@ router.post('/apply', async (req, res) => {
 
                         // }
                     // })
-            // }
-        // }) 
+            }
+        }) 
     
     // Job.findOneAndUpdate({ _id: details.id }, { $inc : {numberofapplications: 1} });
 });
@@ -151,6 +151,15 @@ router.post('/find', async (req, res) => {
 
 router.post('/rate', async (req,res) => {
     await Job.findOneAndUpdate({_id: req.body.id}, {rating: req.body.rating, $inc: {timesrated: 1}})
+})
+
+router.post('/acceptnumber', async (req, res) => {
+    await Job.findOneAndUpdate({_id: req.body.jobId}, {$inc: {numberaccepted: 1}})
+        .then(doc => {
+            if(doc.numberaccepted > doc.numberOfPositions) {
+                return res.status(400).json({ name: "Job has exceeded maximum positions available" });
+            }
+        })
 })
 
 module.exports = router;

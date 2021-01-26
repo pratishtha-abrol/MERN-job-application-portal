@@ -51,6 +51,10 @@ class Applications extends Component {
 			id: id
 		}
 
+		const details = {
+			jobId: ls.get("jobId")
+		}
+
 		if (status === "Accepted") {
 			ls.set("applicanttobefound", name);
 			axios.post("/applicant/accept", applicant)
@@ -60,6 +64,10 @@ class Applications extends Component {
 			axios.post("/applications/remove", application)
 				.then(res => {
 					console.log(res)
+				})
+			axios.post("/jobs/acceptnumber", details)
+				.then(res => {
+					alert(res);
 				})
 		}
 		
