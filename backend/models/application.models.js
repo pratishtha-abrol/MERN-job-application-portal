@@ -11,6 +11,10 @@ const applicationSchema = new Schema({
     ref: 'Job',
     required: true
   },
+  jobName: {
+    type: String,
+    required: true
+  },
   applicantname: {
     type: String,
     required: true

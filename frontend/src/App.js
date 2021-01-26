@@ -17,8 +17,8 @@ import Applications from './components/profiles/applications';
 import ApplicantPublicProfile from './components/profiles/applicantpublicprofile';
 import MyApplications from './components/profiles/myapplications';
 import Landing from './components/layout/landing';
-// import AcceptedApplications from './components/profiles/acceptedapplications';
-// import AcceptedJobs from './components/profiles/acceptedjobs';
+import AcceptedApplications from './components/profiles/acceptedapplications';
+import AcceptedJobs from './components/profiles/acceptedjobs';
 
 function App() {
   return (
@@ -49,8 +49,8 @@ function App() {
         <Route exact path="/applications" component={Applications} />
         <Route exact path="/applicant/publicprofile" component={ApplicantPublicProfile} />
         <Route exact path="/myapplications" component={MyApplications} />
-        {/* <Route exact path="/acceptedjobs" component={AcceptedJobs} /> */}
-        {/* <Route exact path="/acceptedapplications" component={AcceptedApplications} /> */}
+        <Route exact path="/acceptedjobs" component={AcceptedJobs} />
+        <Route exact path="/acceptedapplications" component={AcceptedApplications} />
       </div>
     </Router>
   );

@@ -38,6 +38,10 @@ const jobSchema = new Schema({
         type: Number,
         default: 0
     },
+    timesrated: {
+        type: Number,
+        default: 1
+    },
     requiredSkills: {
         type: [String],
         required: true

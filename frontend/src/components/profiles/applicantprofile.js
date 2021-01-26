@@ -39,7 +39,7 @@ class ApplicantProfile extends Component {
 
 	}
 
-	handleClick = (id) => {
+	handleClick = (id, title) => {
 		// return(
 		// 	<div class="alert">
 		// 		<center><h4>Message: </h4></center> 
@@ -48,7 +48,7 @@ class ApplicantProfile extends Component {
 		// )
 		num = num + 1;
 		if (num > 10) {
-			alert("Exceeded application limit for login session");
+			alert("Exceeded application limit");
 			window.location.reload();
 		}
 		else {
@@ -56,7 +56,7 @@ class ApplicantProfile extends Component {
 			const msg = window.prompt("Enter SOP here");
 			const app = {
 				jobId: id,
-				// applicantId: ls.get("userid"),
+				jobName: title,
 				applicantname: ls.get("username"),
 				applicantemail: ls.get("useremail"),
 				message: msg
@@ -102,7 +102,7 @@ class ApplicantProfile extends Component {
 										<CardTitle><h5>{p.Job.title}</h5></CardTitle>
 										<CardSubtitle>Id: {p.Job._id}</CardSubtitle>
 										<div>
-											<Badge color="info">{p.Job.rating}</Badge>
+											<Badge color="info">Rating: {p.Job.rating}</Badge>
 											<Badge color="secondary">{p.Job.type}</Badge>
 											<Badge color="success">{p.Job.status}</Badge>
 										</div>
@@ -112,7 +112,7 @@ class ApplicantProfile extends Component {
 										<div>
 										<CardText>Skills: {p.Job.requiredSkills.map(skill => {return (<Badge color="info">{skill}</Badge>)})} <br/>Salary: {p.Job.salary}<br/>Duration: {p.Job.duration}</CardText>
 										</div>
-										<Button color={p.hasapplied==="true" ? "success" : "danger"} id="submit" onClick={(index) => this.handleClick(p.Job._id)}>{p.hasapplied==="true" ? "Applied!" : "Apply"}</Button>
+										<Button color={p.hasapplied==="true" ? "success" : "danger"} id="submit" onClick={(index) => this.handleClick(p.Job._id, p.Job.title)}>{p.hasapplied==="true" ? "Applied!" : "Apply"}</Button>
 									</Card>
 								</div>
 							})

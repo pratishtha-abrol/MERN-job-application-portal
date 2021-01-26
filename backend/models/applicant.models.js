@@ -51,6 +51,10 @@ const applicantSchema = new Schema({
         type: Number,
         default: 0
     },
+    timesrated: {
+        type: Number,
+        default: 1
+    },
     resume: {
         type: String,
         required: true

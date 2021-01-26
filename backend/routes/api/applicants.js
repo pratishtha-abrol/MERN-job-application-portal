@@ -9,6 +9,7 @@ const Application = require('../../models/application.models');
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
 let path = require('path');
+const { findOneAndUpdate } = require('../../models/application.models');
 
 // add all info
 router.post(("/"), (req, res) => {
@@ -108,5 +109,8 @@ router.route('/uploadProfilePic').post(upload.single('profilepicture'), (req, re
            .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.post(('/rate'), async (req,res) => {
+    await Applicant.findOneAndUpdate({ name: req.body.name }, { rating: req.body.rating, $inc: {timesrated: 1} })
+})
 
 module.exports = router;

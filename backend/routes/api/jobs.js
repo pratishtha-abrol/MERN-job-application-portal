@@ -137,6 +137,20 @@ router.post('/delete', (req, res) => {
         .then(res => {
             console.log(res);
         })
+});
+
+router.post('/find', async (req, res) => {
+    const data = req.body;
+    const job = await Job.findOne({ _id: data.id })
+        // .then(res => {
+        //     console.log(res);
+        //     res.send()
+        // })
+    res.send(job);
+})
+
+router.post('/rate', async (req,res) => {
+    await Job.findOneAndUpdate({_id: req.body.id}, {rating: req.body.rating, $inc: {timesrated: 1}})
 })
 
 module.exports = router;

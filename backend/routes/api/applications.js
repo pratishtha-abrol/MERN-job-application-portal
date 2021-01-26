@@ -69,6 +69,19 @@ router.post("/accepted", async (req, res) => {
     }
     
     res.send(array);
-})
+});
+
+router.post("/findaccepted", async (req, res) => {
+    const data = req.body;
+    const list = await Application.find({applicantname: data.applicantname})
+    const array =[]
+    for (let i=0; i<list.length; i++) {
+        if(list[i].status === "Accepted") {
+            array.push(list[i])
+        }
+    }
+    
+    res.send(array);
+});
 
 module.exports = router;

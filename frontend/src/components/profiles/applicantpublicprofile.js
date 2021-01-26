@@ -84,7 +84,7 @@ class ApplicantPublicProfile extends Component {
                                         })
                                     }
                                 </Card>
-                                <Button onClick={this.download(p.resume)}>Download Resume</Button>
+                                <Button onClick={this.download.bind(p.resume)}>Download Resume</Button>
                                 </center>
                             </div>
                         })
