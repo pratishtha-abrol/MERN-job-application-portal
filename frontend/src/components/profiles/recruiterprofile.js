@@ -99,7 +99,7 @@ class RecruiterProfile extends Component {
 					{
 						this.state.JobList.filter((p) => {
 							if(this.state.status === "") return p
-							else if(p.Job.status === (this.state.status)) return p
+							else if(p.status === (this.state.status)) return p
 						})
 						.map((p, index) => {
 							return <div key={index}>

@@ -10,7 +10,8 @@ import {
 	CardSubtitle,
 	Row,
 	Input,
-	Label
+	Label,
+	FormGroup
 } from 'reactstrap';
 import axios from 'axios';
 
@@ -113,6 +114,60 @@ class ApplicantProfile extends Component {
 		});
 		console.log(this.state.max)
 	}
+
+	salarysortasc = async (e) => {
+		const List = await this.state.JobList.sort(function (a, b) {
+			return a.Job.salary - b.Job.salary;
+		})
+		// console.log(this.state.JobList)
+		// window.location.reload();
+		this.setState({JobList: List})
+	}
+
+	salarysortdesc = async (e) => {
+		const List = await this.state.JobList.sort(function (a, b) {
+			return a.Job.salary - b.Job.salary;
+		}).reverse();
+		// console.log(this.state.JobList)
+		// window.location.reload();
+		this.setState({JobList: List})
+	}
+
+	durationsortasc = async (e) => {
+		const List = await this.state.JobList.sort(function (a, b) {
+			return a.Job.duration - b.Job.duration;
+		})
+		// console.log(this.state.JobList)
+		// window.location.reload();
+		this.setState({JobList: List})
+	}
+
+	durationsortdesc = async (e) => {
+		const List = await this.state.JobList.sort(function (a, b) {
+			return a.Job.duration - b.Job.duration;
+		}).reverse();
+		// console.log(this.state.JobList)
+		// window.location.reload();
+		this.setState({JobList: List})
+	}
+
+	ratingsortasc = async (e) => {
+		const List = await this.state.JobList.sort(function (a, b) {
+			return a.Job.rating - b.Job.rating;
+		})
+		// console.log(this.state.JobList)
+		// window.location.reload();
+		this.setState({JobList: List})
+	}
+
+	ratingsortdesc = async (e) => {
+		const List = await this.state.JobList.sort(function (a, b) {
+			return a.Job.rating - b.Job.rating;
+		}).reverse();
+		// console.log(this.state.JobList)
+		// window.location.reload();
+		this.setState({JobList: List})
+	}
 	
 	
 	render() {
@@ -159,6 +214,43 @@ class ApplicantProfile extends Component {
                     {/* </FormGroup> */}
 					{/* </Row> */}
 					</Card>
+					<div>
+						<center>
+						<Card body>
+						<FormGroup tag="fieldset">
+							<legend>Sort on Salary</legend>
+							<FormGroup check>
+								<Button onClick={(e) => this.salarysortasc(e)}>Ascending</Button>
+							</FormGroup>
+							<FormGroup check>
+								<Button onClick={this.salarysortdesc}>Descending</Button>
+							</FormGroup>
+						</FormGroup>
+						</Card>
+						<Card>
+						<FormGroup tag="fieldset">
+							<legend>Sort on Duration</legend>
+							<FormGroup check>
+								<Button onClick={this.durationsortasc}>Ascending</Button>
+							</FormGroup>
+							<FormGroup check>
+								<Button onClick={this.durationsortdesc}>Descending</Button>
+							</FormGroup>
+						</FormGroup>
+						</Card>
+						<Card>
+						<FormGroup tag="fieldset">
+							<legend>Sort on Job Rating</legend>
+							<FormGroup check>
+								<Button onClick={this.ratingsortasc}>Ascending</Button>
+							</FormGroup>
+							<FormGroup check>
+								<Button onClick={this.ratingsortdesc}>Descending</Button>
+							</FormGroup>
+						</FormGroup>
+						</Card>
+						</center>
+					</div>
 				</div>
 					<div>
 						{/* <center>Hello there, Applicant {ls.get("username")}</center> */}

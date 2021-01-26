@@ -6,7 +6,8 @@ import {
 	Button,
 	CardTitle,
 	CardSubtitle,
-	Badge
+	Badge,
+	Label
 } from 'reactstrap';
 import axios from 'axios';
 
@@ -17,7 +18,8 @@ class Applications extends Component {
     constructor() {
 		super();
 		this.state = {
-			List: []
+			List: [],
+			order: "Ascending"
 		};
 		// this.handleChange = this.handleClick.bind(this);
 	}
@@ -82,7 +84,39 @@ class Applications extends Component {
     applicantClick = (name) => {
         ls.set("applicanttobefound", name);
         window.location = "/applicant/publicprofile"
-    }
+	}
+	
+	nameasc = async () => {
+		const newList = await this.state.List.sort(function (a, b) {
+			if (a.applicantname > b.applicantname) return 1
+			if (a.applicantname < b.applicantname) return -1
+			return 0
+		})
+		this.setState({List: newList});
+	}
+
+	namedesc = async () => {
+		const newList = await this.state.List.sort(function (a, b) {
+			if (a.applicantname > b.applicantname) return 1
+			if (a.applicantname < b.applicantname) return -1
+			return 0
+		}).reverse();
+		this.setState({List: newList});
+	}
+
+	timeasc = async () => {
+		const newList = await this.state.List.sort(function (a, b) {
+			return a.timestamps - b.timestamps
+		})
+		this.setState({List: newList});
+	}
+
+	timedesc = async () => {
+		const newList = await this.state.List.sort(function (a, b) {
+			return a.timestamps - b.timestamps
+		}).reverse();
+		this.setState({List: newList});
+	}
 
     render() {
 
@@ -90,6 +124,18 @@ class Applications extends Component {
 			<div>
 				<div>
 					<Welcome />
+					<div>
+						<Card body className="text-center">
+						<Label>Sort on Applicant Name:</Label>
+						<Button onClick={this.nameasc}>Ascending</Button>
+						<Button onClick={this.namedesc}>Descending</Button>
+						</Card>
+						<Card body className="text-center">
+						<Label>Sort on Application Date:</Label>
+						<Button onClick={this.timeasc}>Ascending</Button>
+						<Button onClick={this.timedesc}>Descending</Button>
+						</Card>
+					</div>
 					{/* <center>Hello there, Recruiter {ls.get("username")}</center> */}
 					<div class="row">  
 							<div class="col-sm-12 btn btn-primary" style={{ "margin": "6px" }}>  
