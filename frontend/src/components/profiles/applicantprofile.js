@@ -7,7 +7,10 @@ import {
 	CardTitle,
 	CardText,
 	Badge,
-	CardSubtitle
+	CardSubtitle,
+	Row,
+	Input,
+	Label
 } from 'reactstrap';
 import axios from 'axios';
 
@@ -18,8 +21,11 @@ class ApplicantProfile extends Component {
 		super();
 		this.state = {
 			JobList: [],
-			value: "Apply",
-			color: "danger"
+			titlesearch: null,
+			typesearch: "",
+			durationfilter: "undefined",
+			min: "",
+			max: ""
 		};
 		// this.handleChange = this.handleClick.bind(this);
 	}
@@ -70,15 +76,44 @@ class ApplicantProfile extends Component {
 				.catch(res => {
 					alert(JSON.stringify(res.response.data[Object.keys(res.response.data)[0]]));
 				})
-
-			this.setState({
-				value: "Applied!",
-				color: "success",
-			})
-
 		}
 
 	}
+
+	searchSpace = (event) => {
+		let keyword = event.target.value;
+		this.setState({ titlesearch: keyword })
+	}
+
+	Change = async (e) => {
+		var val = e.target.value;
+		await this.setState({ typesearch: val });
+		console.log(this.state.typesearch)
+	}
+
+	toggle = () => this.setState({dropdownOpen: !this.state.dropdownOpen});
+
+	handleChange = async (event) => {
+        await this.setState({ 
+            durationfilter: event.target.value,
+		});
+		console.log(this.state.durationfilter)
+	}
+	
+	minChange = async (e) => {
+		await this.setState({ 
+            min: e.target.value,
+		});
+		console.log(this.state.min)
+	}
+
+	maxChange = async (e) => {
+		await this.setState({ 
+            max: e.target.value,
+		});
+		console.log(this.state.max)
+	}
+	
 	
 	render() {
 
@@ -88,6 +123,43 @@ class ApplicantProfile extends Component {
 			// </h3>
 			<div>
 				{/* {ls.get("userrole") === "Applicant" ? ( */}
+				<div>
+					<Card body color="light" className="text-center">
+					<Row>
+						<Input type="text" id="search" placeholder="search for title" onChange={(e) => this.searchSpace(e)}/>
+					</Row>
+					{/* <Row> */}
+					<Card body className="text-center">
+						<CardTitle>Filter on Job Type</CardTitle>
+						<Card>
+						<Input type="radio" name="radio2" value="Full Time" onChange={this.handleChange}/>{' '} Full Time
+						</Card>
+						<Card>
+						<Input type="radio" name="radio2" value="Part Time" onChange={this.handleChange}/>{' '} Part Time
+						</Card>
+						<Card>
+						<Input type="radio" name="radio2" value="Internship" onChange={this.handleChange}/>{' '} Internship/WFH
+						</Card>
+					</Card>
+					{/* <FormGroup> */}
+                        <Label for="select">Job Duration Filter</Label>
+                            <Input type="select" name="role" id="role" onChange={ (e) => {this.Change(e)} }>
+                                <option value="0">undefined</option>
+                                <option value="1">1 month</option>
+								<option value="2">2 month</option>
+								<option value="3">3 month</option>
+								<option value="4">4 month</option>
+								<option value="5">5 month</option>
+								<option value="6">6 month</option>
+                            </Input>
+
+							<Label for="salary">Salary Filter</Label>
+                            <Input type="number" min="0" placeholder="minimum" onChange={ (e) => {this.minChange(e)}} />
+							<Input type="number" min="0" placeholder="maximum" onChange={ (e) => {this.maxChange(e)}} />
+                    {/* </FormGroup> */}
+					{/* </Row> */}
+					</Card>
+				</div>
 					<div>
 						{/* <center>Hello there, Applicant {ls.get("username")}</center> */}
 						<div class="row">  
@@ -96,7 +168,27 @@ class ApplicantProfile extends Component {
 							</div>  
 						</div>
 						{
-							this.state.JobList.map((p, index) => {
+							this.state.JobList.filter((p) => {
+								if(this.state.titlesearch === null) return p
+								else if(p.Job.title.includes(this.state.titlesearch.toLowerCase())) return p
+							})
+							.filter((p) => {
+								if(this.state.typesearch === "") return p
+								else if(p.Job.type === (this.state.typesearch)) return p
+							})
+							.filter((p) => {
+								if(this.state.durationfilter === "undefined") return p
+								// else if(p.Job.duration < (this.state.durationfilter)) return p
+							})
+							.filter(p => {
+								if(this.state.min === "") return p
+								else if(p.Job.salary > (this.state.min)) return p
+							})
+							.filter(p => {
+								if(this.state.max === "") return p
+								else if(p.Job.salary < (this.state.max)) return p
+							})
+							.map((p, index) => {
 								return <div key={index}>
 									<Card body color="light" className="text-center">
 										<CardTitle><h5>{p.Job.title}</h5></CardTitle>
@@ -110,7 +202,7 @@ class ApplicantProfile extends Component {
 										<CardSubtitle>Recruiter: {p.Job.postedby} <br/>Email: {p.Job.recruiteremail} <br/> Date of Posting: {p.Job.date}</CardSubtitle>
 										</div>
 										<div>
-										<CardText>Skills: {p.Job.requiredSkills.map(skill => {return (<Badge color="info">{skill}</Badge>)})} <br/>Salary: {p.Job.salary}<br/>Duration: {p.Job.duration}</CardText>
+										<CardText>Skills: {p.Job.requiredSkills.map(skill => {return (<Badge color="info">{skill}</Badge>)})} <br/>Salary: {p.Job.salary}<br/>Duration: {p.Job.duration} <br/>Job Type: {p.Job.type}</CardText>
 										</div>
 										<Button color={p.hasapplied==="true" ? "success" : "danger"} id="submit" onClick={(index) => this.handleClick(p.Job._id, p.Job.title)}>{p.hasapplied==="true" ? "Applied!" : "Apply"}</Button>
 									</Card>

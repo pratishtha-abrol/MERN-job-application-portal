@@ -8,14 +8,17 @@ import {
 	CardTitle,
 	CardText,
 	Badge,
-	CardSubtitle
+	CardSubtitle,
+	Input,
+	Label
 } from 'reactstrap';
 
 class RecruiterProfile extends Component {
 	constructor() {
 		super();
 		this.state = {
-			JobList: []
+			JobList: [],
+			status: ""
 		};
 		// this.handleChange = this.handleClick.bind(this);
 	}
@@ -69,19 +72,36 @@ class RecruiterProfile extends Component {
 		window.location='/acceptedapplications'
 	}
 
+	Change = async (e) => {
+		var val = e.target.value;
+		await this.setState({ status: val });
+		console.log(this.state.status)
+	}
+
 	render() {
 
 		return (
 			<div>
 				<div>
 					{/* <center>Hello there, Recruiter {ls.get("username")}</center> */}
+					<div>
+						<Label for="status">Select Job Status</Label>
+						<Input type="select" name="status" id="status" onChange={ (e) => {this.Change(e)} }>
+                                <option value="Active">Active</option>
+                                <option value="Expired">Expired</option>
+						</Input>
+					</div>
 					<div class="row">  
 							<div class="col-sm-12 btn btn-primary" style={{ "margin": "6px" }}>  
 								Jobs Posted
 							</div>  
 					</div>
 					{
-						this.state.JobList.map((p, index) => {
+						this.state.JobList.filter((p) => {
+							if(this.state.status === "") return p
+							else if(p.Job.status === (this.state.status)) return p
+						})
+						.map((p, index) => {
 							return <div key={index}>
 								<Card body color="light" className="text-center">
 									<CardTitle><h5>{p.title}</h5></CardTitle>
